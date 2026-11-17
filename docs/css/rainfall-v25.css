@@ -1,0 +1,20 @@
+/* Rainfall controls retain the existing responsive panel and accessible focus system. */
+#rainfallControls { border:1px solid #cddbdc;border-radius:14px;padding:12px;background:#f5faf8;min-width:0; }
+#rainfallControls select,#rainfallControls button { max-width:100%;min-height:40px; }
+#rainfallControls p,#rainModelParams { overflow-wrap:anywhere;line-height:1.55;font-size:12px; }
+#liveRainState { padding:9px 10px;border-left:3px solid #758a91;background:#eaf0f1;border-radius:5px; }
+#rainModelSummary { font-weight:600;color:#26443f; }
+#rainModelParams { margin-top:8px;color:#4b605b; }
+#rainfallControls input:disabled { opacity:.65; }
+#rainfallControls .flood-number-row[hidden] { display:none!important; }
+.rainfall-key { display:flex;gap:8px;flex-wrap:wrap;font-size:12px; }
+.rainfall-key span { border-radius:7px;padding:5px 7px;background:#fff; }
+.rainfall-key .rain-green { border-left:4px solid #16866a; }
+.rainfall-key .rain-yellow { border-left:4px solid #f4cb42; }
+.rainfall-key .rain-red { border-left:4px solid #dc5148; }
+.flood-legend .dry { background:#16866a; }
+.flood-legend .wet { background:#f4cb42; }
+.flood-legend .deep { background:#dc5148; }
+@media (max-width:540px) { #rainfallControls { padding:10px; } #rainfallControls button { width:100%; } }
+
+.rain-time-card{padding:13px 12px;margin:12px 0;border:1px solid #bdd3ca;border-radius:12px;background:#f3f8f2}.rain-time-card[hidden]{display:none!important}.time-heading .eyebrow{font-size:9px;color:#517664;letter-spacing:1.4px}.time-heading h2{font-size:16px;line-height:1.5;margin:5px 0 10px;color:#254c3b}.rain-time-card label{font-size:11px;line-height:1.6}.time-input-row{display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:center;margin:7px 0}.time-input-row input[type=number]{display:block;width:100%;min-height:38px;padding:7px;background:white;border:1px solid #b8cbc4;border-radius:5px}.time-freeze{display:flex;gap:7px;align-items:center}.time-freeze input{accent-color:#2d6a51}.rain-time-card input[type=range]{width:100%;accent-color:#356b53;margin:8px 0}#rainTimeReadout{float:right;font-variant-numeric:tabular-nums;font-weight:bold}.time-jumps{display:flex;gap:7px}.time-jumps button{flex:1;min-height:34px!important}#rainTimelineChart{width:100%;height:auto;display:block;margin:7px 0}#rainTimeSummary,#rainTimeRelation{font-size:10px;line-height:1.6}#rainTimeRelation{padding:8px;background:#e4efe4;border-radius:5px;color:#315b43}.time-heading h2{white-space:normal}

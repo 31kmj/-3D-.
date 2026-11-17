@@ -1,0 +1,1389 @@
+{
+  "metadata": {
+    "source": "OpenStreetMap contributors",
+    "license": "ODbL-1.0",
+    "source_sha256": "c2086e6b336044e6db2140a8d1acedc22d0b8382a8f604e03b4d9ce784ddd8ef",
+    "origin_lonlat": [
+      126.9827,
+      37.5688
+    ],
+    "vertical_basis": "all Y assumptions; ENU roundtrip is numerical, not survey accuracy",
+    "tree_row_spacing": "7m visual interpolation, not a count of surveyed trees",
+    "furniture_form": "procedural generic forms, sizes and orientation assumed"
+  },
+  "trees": [
+    {
+      "osm_id": 10911257009,
+      "osm_type": "node",
+      "position": [
+        37.731,
+        -119.301
+      ],
+      "tags": {
+        "circumference": "4",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257010,
+      "osm_type": "node",
+      "position": [
+        37.095,
+        -111.366
+      ],
+      "tags": {
+        "circumference": "4",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257011,
+      "osm_type": "node",
+      "position": [
+        34.807,
+        -86.671
+      ],
+      "tags": {
+        "circumference": "4.5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257012,
+      "osm_type": "node",
+      "position": [
+        38.376,
+        -97.148
+      ],
+      "tags": {
+        "circumference": "4.5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257013,
+      "osm_type": "node",
+      "position": [
+        42.493,
+        -88.769
+      ],
+      "tags": {
+        "circumference": "4.5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257014,
+      "osm_type": "node",
+      "position": [
+        53.112,
+        -87.947
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257015,
+      "osm_type": "node",
+      "position": [
+        63.183,
+        -88.314
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257016,
+      "osm_type": "node",
+      "position": [
+        72.972,
+        -88.314
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257017,
+      "osm_type": "node",
+      "position": [
+        96.268,
+        -88.203
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257018,
+      "osm_type": "node",
+      "position": [
+        100.473,
+        -101.189
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257019,
+      "osm_type": "node",
+      "position": [
+        95.534,
+        -130.922
+      ],
+      "tags": {
+        "circumference": "5",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 10911257020,
+      "osm_type": "node",
+      "position": [
+        87.327,
+        -132.387
+      ],
+      "tags": {
+        "circumference": "4",
+        "denotation": "park",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11792915427,
+      "osm_type": "node",
+      "position": [
+        -381.983,
+        -188.489
+      ],
+      "tags": {
+        "denotation": "cherry_blossom",
+        "leaf_type": "broadleaved",
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14142434133,
+      "osm_type": "node",
+      "position": [
+        457.525,
+        -179.037
+      ],
+      "tags": {
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14142434134,
+      "osm_type": "node",
+      "position": [
+        466.191,
+        -177.395
+      ],
+      "tags": {
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14142434135,
+      "osm_type": "node",
+      "position": [
+        480.839,
+        -177.495
+      ],
+      "tags": {
+        "natural": "tree"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    }
+  ],
+  "tree_rows": [
+    {
+      "osm_id": 1128466638,
+      "osm_type": "way",
+      "points": [
+        [
+          455.059,
+          113.584
+        ],
+        [
+          454.918,
+          128.223
+        ]
+      ],
+      "tags": {
+        "natural": "tree_row"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 1128466639,
+      "osm_type": "way",
+      "points": [
+        [
+          454.627,
+          130.155
+        ],
+        [
+          454.495,
+          142.485
+        ]
+      ],
+      "tags": {
+        "natural": "tree_row"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 1128466640,
+      "osm_type": "way",
+      "points": [
+        [
+          454.345,
+          144.272
+        ],
+        [
+          454.204,
+          155.382
+        ]
+      ],
+      "tags": {
+        "natural": "tree_row"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 1128466641,
+      "osm_type": "way",
+      "points": [
+        [
+          453.93,
+          159.067
+        ],
+        [
+          453.957,
+          169.256
+        ]
+      ],
+      "tags": {
+        "natural": "tree_row"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    }
+  ],
+  "benches": [
+    {
+      "osm_id": 10316978024,
+      "osm_type": "node",
+      "position": [
+        403.535,
+        112.0
+      ],
+      "tags": {
+        "amenity": "bench",
+        "backrest": "yes",
+        "material": "wood"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11341589784,
+      "osm_type": "node",
+      "position": [
+        -380.208,
+        -184.305
+      ],
+      "tags": {
+        "amenity": "bench",
+        "backrest": "yes",
+        "material": "metal"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    }
+  ],
+  "crossings": [
+    {
+      "osm_id": 2309513946,
+      "osm_type": "node",
+      "position": [
+        -150.297,
+        -177.028
+      ],
+      "tags": {
+        "crossing:island": "no",
+        "crossing:markings": "yes",
+        "crossing:signals": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 14
+    },
+    {
+      "osm_id": 2463586332,
+      "osm_type": "node",
+      "position": [
+        -451.144,
+        -64.619
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "crossing:signals": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 9
+    },
+    {
+      "osm_id": 3112252730,
+      "osm_type": "node",
+      "position": [
+        412.003,
+        -164.872
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 9
+    },
+    {
+      "osm_id": 3112252733,
+      "osm_type": "node",
+      "position": [
+        436.316,
+        -144.296
+      ],
+      "tags": {
+        "button_operated": "no",
+        "crossing:signals": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 10
+    },
+    {
+      "osm_id": 3112255529,
+      "osm_type": "node",
+      "position": [
+        413.187,
+        -151.698
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 9
+    },
+    {
+      "osm_id": 3647496994,
+      "osm_type": "node",
+      "position": [
+        9.32,
+        -44.273
+      ],
+      "tags": {
+        "crossing:island": "no",
+        "crossing:signals": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 9
+    },
+    {
+      "osm_id": 3818627571,
+      "osm_type": "node",
+      "position": [
+        -467.669,
+        -135.796
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 6
+    },
+    {
+      "osm_id": 5359231204,
+      "osm_type": "node",
+      "position": [
+        -297.175,
+        -179.285
+      ],
+      "tags": {
+        "crossing:signals": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 8
+    },
+    {
+      "osm_id": 5706326038,
+      "osm_type": "node",
+      "position": [
+        -452.542,
+        -32.254
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "crossing:signals": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 8
+    },
+    {
+      "osm_id": 7068927982,
+      "osm_type": "node",
+      "position": [
+        -278.827,
+        -153.835
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "crossing:island": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 7068953034,
+      "osm_type": "node",
+      "position": [
+        -278.774,
+        -148.341
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 7505703291,
+      "osm_type": "node",
+      "position": [
+        -314.452,
+        -20.539
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 7505703292,
+      "osm_type": "node",
+      "position": [
+        -291.173,
+        -17.952
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 8380350240,
+      "osm_type": "node",
+      "position": [
+        -297.034,
+        -162.381
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 9937135037,
+      "osm_type": "node",
+      "position": [
+        -472.252,
+        -170.714
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 7
+    },
+    {
+      "osm_id": 10911257061,
+      "osm_type": "node",
+      "position": [
+        7.863,
+        -144.418
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 10911257064,
+      "osm_type": "node",
+      "position": [
+        7.995,
+        -149.524
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 4
+    },
+    {
+      "osm_id": 10911257068,
+      "osm_type": "node",
+      "position": [
+        9.453,
+        -171.899
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11189591938,
+      "osm_type": "node",
+      "position": [
+        451.043,
+        -145.218
+      ],
+      "tags": {
+        "button_operated": "no",
+        "crossing:signals": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 11197929744,
+      "osm_type": "node",
+      "position": [
+        -472.289,
+        -148.96
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "crossing:markings": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes",
+        "traffic_signals:sound": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 11197929745,
+      "osm_type": "node",
+      "position": [
+        -471.926,
+        -164.321
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "crossing:markings": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes",
+        "traffic_signals:sound": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 11198015008,
+      "osm_type": "node",
+      "position": [
+        8.764,
+        -159.945
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11198015009,
+      "osm_type": "node",
+      "position": [
+        8.755,
+        -164.218
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015010,
+      "osm_type": "node",
+      "position": [
+        15.433,
+        -178.269
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015015,
+      "osm_type": "node",
+      "position": [
+        14.038,
+        -140.123
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015016,
+      "osm_type": "node",
+      "position": [
+        42.219,
+        -171.111
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015017,
+      "osm_type": "node",
+      "position": [
+        35.381,
+        -146.871
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015018,
+      "osm_type": "node",
+      "position": [
+        36.291,
+        -150.178
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 11198015019,
+      "osm_type": "node",
+      "position": [
+        39.869,
+        -163.275
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 11198015020,
+      "osm_type": "node",
+      "position": [
+        32.439,
+        -139.945
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198015025,
+      "osm_type": "node",
+      "position": [
+        35.187,
+        -177.87
+      ],
+      "tags": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "kerb": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11198026213,
+      "osm_type": "node",
+      "position": [
+        21.732,
+        -140.045
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11198026214,
+      "osm_type": "node",
+      "position": [
+        24.391,
+        -178.092
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115438,
+      "osm_type": "node",
+      "position": [
+        -301.589,
+        -24.689
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115446,
+      "osm_type": "node",
+      "position": [
+        -148.532,
+        -42.199
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115473,
+      "osm_type": "node",
+      "position": [
+        -425.394,
+        -24.817
+      ],
+      "tags": {
+        "crossing:island": "yes",
+        "crossing:markings": "yes",
+        "crossing:signals": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 11233115477,
+      "osm_type": "node",
+      "position": [
+        -312.232,
+        140.461
+      ],
+      "tags": {
+        "crossing:island": "no",
+        "crossing:markings": "yes",
+        "crossing:signals": "no",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 5
+    },
+    {
+      "osm_id": 11233115478,
+      "osm_type": "node",
+      "position": [
+        -310.135,
+        75.211
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 11233115479,
+      "osm_type": "node",
+      "position": [
+        -308.437,
+        18.507
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115484,
+      "osm_type": "node",
+      "position": [
+        -302.517,
+        -7.286
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115485,
+      "osm_type": "node",
+      "position": [
+        -255.085,
+        -10.614
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115525,
+      "osm_type": "node",
+      "position": [
+        -15.31,
+        4.961
+      ],
+      "tags": {
+        "crossing:signals": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11233115532,
+      "osm_type": "node",
+      "position": [
+        -141.201,
+        -0.345
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 11233115533,
+      "osm_type": "node",
+      "position": [
+        -57.539,
+        5.838
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11233115540,
+      "osm_type": "node",
+      "position": [
+        0.406,
+        21.82
+      ],
+      "tags": {
+        "crossing:signals": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 4
+    },
+    {
+      "osm_id": 11233115541,
+      "osm_type": "node",
+      "position": [
+        24.957,
+        11.432
+      ],
+      "tags": {
+        "crossing:signals": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 11329537683,
+      "osm_type": "node",
+      "position": [
+        435.633,
+        -184.552
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 11329537684,
+      "osm_type": "node",
+      "position": [
+        446.932,
+        -185.063
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 11414286297,
+      "osm_type": "node",
+      "position": [
+        -470.771,
+        199.677
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 12234253866,
+      "osm_type": "node",
+      "position": [
+        -472.067,
+        -156.074
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 12234253867,
+      "osm_type": "node",
+      "position": [
+        8.516,
+        -155.75
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 12234253869,
+      "osm_type": "node",
+      "position": [
+        37.943,
+        -155.939
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 12234253886,
+      "osm_type": "node",
+      "position": [
+        -278.756,
+        -159.584
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:island": "no",
+        "crossing:markings": "zebra",
+        "crossing:signals": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 4
+    },
+    {
+      "osm_id": 12234253893,
+      "osm_type": "node",
+      "position": [
+        -278.809,
+        -151.77
+      ],
+      "tags": {
+        "crossing": "marked",
+        "crossing:markings": "zebra",
+        "crossing:signals": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 3
+    },
+    {
+      "osm_id": 12234253899,
+      "osm_type": "node",
+      "position": [
+        8.719,
+        -159.157
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 12234274101,
+      "osm_type": "node",
+      "position": [
+        38.959,
+        -159.546
+      ],
+      "tags": {
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 13732389928,
+      "osm_type": "node",
+      "position": [
+        9.055,
+        21.665
+      ],
+      "tags": {
+        "crossing:signals": "yes",
+        "highway": "crossing",
+        "tactile_paving": "yes"
+      },
+      "survey_verified": false,
+      "source_version": 2
+    },
+    {
+      "osm_id": 14214304856,
+      "osm_type": "node",
+      "position": [
+        277.001,
+        193.459
+      ],
+      "tags": {
+        "crossing": "unmarked",
+        "crossing:markings": "no",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214304857,
+      "osm_type": "node",
+      "position": [
+        276.83,
+        110.917
+      ],
+      "tags": {
+        "crossing": "unmarked",
+        "crossing:markings": "no",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214304861,
+      "osm_type": "node",
+      "position": [
+        347.55,
+        92.513
+      ],
+      "tags": {
+        "crossing": "unmarked",
+        "crossing:markings": "no",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214315066,
+      "osm_type": "node",
+      "position": [
+        261.901,
+        155.28
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214315072,
+      "osm_type": "node",
+      "position": [
+        167.062,
+        156.281
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214319760,
+      "osm_type": "node",
+      "position": [
+        414.248,
+        218.215
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214368165,
+      "osm_type": "node",
+      "position": [
+        271.469,
+        144.103
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214368168,
+      "osm_type": "node",
+      "position": [
+        271.962,
+        107.71
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214368171,
+      "osm_type": "node",
+      "position": [
+        163.839,
+        221.531
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214368173,
+      "osm_type": "node",
+      "position": [
+        157.69,
+        215.516
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    },
+    {
+      "osm_id": 14214368175,
+      "osm_type": "node",
+      "position": [
+        146.761,
+        221.554
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "highway": "crossing"
+      },
+      "survey_verified": false,
+      "source_version": 1
+    }
+  ]
+}

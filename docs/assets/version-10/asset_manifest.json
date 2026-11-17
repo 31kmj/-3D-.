@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "version_ordinal": 10,
+  "display_version": "V10",
+  "purpose": "smaller local derivatives of existing generic visualization textures and environment; not site survey assets",
+  "assets": [
+    {
+      "asset_id": "stone_wall_02",
+      "channel": "diff",
+      "source": "https://polyhaven.com/a/stone_wall_02",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "stone_wall_02_diff.jpg",
+      "bytes": 233051,
+      "sha256": "ca3eba6f5841da57379d612ace532e6c3fcfef01fc97139e44c15128dae0409a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/stone_wall_02_diff.jpg",
+      "upstream_bytes": 2554296,
+      "upstream_sha256": "0b84bf19acc263bbb52071317de12a7fafcc0ffa95dd585fb4dfa33dcbed0e1d",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_wall_02/stone_wall_02_diff_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:34.842445+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; JPEG quality90, 4:4:4; existing sRGB interpretation retained"
+    },
+    {
+      "asset_id": "stone_wall_02",
+      "channel": "nor_gl",
+      "source": "https://polyhaven.com/a/stone_wall_02",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "stone_wall_02_nor_gl.jpg",
+      "bytes": 614800,
+      "sha256": "3d08d8a2a4bb47897da59b9a25b784d99553eb54498fa6a2072ba1357df7e7d1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/stone_wall_02_nor_gl.jpg",
+      "upstream_bytes": 3715793,
+      "upstream_sha256": "f7b684c229f2e80100b700dcf41df312c345b13e4345f1db24a8dcfe5bb81f72",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_wall_02/stone_wall_02_nor_gl_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:36.362379+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; tangent normal vector renormalization; JPEG quality92, 4:4:4"
+    },
+    {
+      "asset_id": "stone_wall_02",
+      "channel": "rough",
+      "source": "https://polyhaven.com/a/stone_wall_02",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "stone_wall_02_rough.jpg",
+      "bytes": 34538,
+      "sha256": "17e7e8b7ce7873625749a7451243085ae5395a3b268d8037e4a131bfa25fc8c1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/stone_wall_02_rough.jpg",
+      "upstream_bytes": 1215515,
+      "upstream_sha256": "83e849a0a2fb11c77b682014b228a18d0392801fba951e58db8dddaedd1ff31b",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_wall_02/stone_wall_02_rough_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:37.897275+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; grayscale roughness; JPEG quality88"
+    },
+    {
+      "asset_id": "pavement_05",
+      "channel": "diff",
+      "source": "https://polyhaven.com/a/pavement_05",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "pavement_05_diff.jpg",
+      "bytes": 434897,
+      "sha256": "867c5af8081501c9ad91b75fb47c6bfbd20d3ccb6c637618f7e0b4d1b75849f4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/pavement_05_diff.jpg",
+      "upstream_bytes": 4326824,
+      "upstream_sha256": "c3d0961df1c97afcc555cb478187ba0ebea106c786c061ae40d8c95faebf297a",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/pavement_05/pavement_05_diff_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:39.523924+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; JPEG quality90, 4:4:4; existing sRGB interpretation retained"
+    },
+    {
+      "asset_id": "pavement_05",
+      "channel": "nor_gl",
+      "source": "https://polyhaven.com/a/pavement_05",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "pavement_05_nor_gl.jpg",
+      "bytes": 401732,
+      "sha256": "969397a4054deeca2358420d5089ad7decd45f0810d26934f6f28f01689d5262",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/pavement_05_nor_gl.jpg",
+      "upstream_bytes": 3162242,
+      "upstream_sha256": "cf91062ac7d7db1e495e91ae6f2f67e83afeb8d30de20ce1c4f16fabe8964b29",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/pavement_05/pavement_05_nor_gl_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:39.875982+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; tangent normal vector renormalization; JPEG quality92, 4:4:4"
+    },
+    {
+      "asset_id": "pavement_05",
+      "channel": "rough",
+      "source": "https://polyhaven.com/a/pavement_05",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "pavement_05_rough.jpg",
+      "bytes": 49181,
+      "sha256": "6df495630e152c2ccece946343952d508be6596ef8145629b27e05546c668b55",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "derived_from": "assets/version-3/pavement_05_rough.jpg",
+      "upstream_bytes": 1601352,
+      "upstream_sha256": "f045c91319b553232304230f8780709d2b05cf4fc4d03becade149722293870c",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/pavement_05/pavement_05_rough_2k.jpg",
+      "upstream_retrieved_utc": "2026-10-19T11:19:40.438477+00:00",
+      "source_dimensions": [
+        2048,
+        2048
+      ],
+      "processing": "Lanczos 2048->1024; grayscale roughness; JPEG quality88"
+    },
+    {
+      "asset_id": "abandoned_parking",
+      "channel": "hdri",
+      "source": "https://polyhaven.com/a/abandoned_parking",
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "role": "generic visualization material/environment; not a Cheonggye survey/photo",
+      "file": "abandoned_parking_hdri.hdr",
+      "bytes": 410640,
+      "sha256": "4076918f7232e826f678e40332b601907eec68cc3c7947fee29c323dc3d59197",
+      "dimensions": [
+        512,
+        256
+      ],
+      "derived_from": "assets/version-3/abandoned_parking_hdri.hdr",
+      "upstream_bytes": 6449449,
+      "upstream_sha256": "b25d4abfe18fc821c80b6ab8c637cd80e2695de5fee844160feb3eff5d3da311",
+      "upstream_url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/abandoned_parking_2k.hdr",
+      "upstream_retrieved_utc": "2026-10-19T11:19:51.360265+00:00",
+      "source_dimensions": [
+        2048,
+        1024
+      ],
+      "processing": "RGBE decode; 4x4 average in linear radiance (2048x1024->512x256); RGBE RLE encode. No exposure/colour transform."
+    }
+  ],
+  "totals": {
+    "upstream_binary_bytes": 23025471,
+    "derived_binary_bytes": 2178839,
+    "saved_bytes": 20846632,
+    "reduction_percent": 90.54
+  },
+  "source_policy": "https://github.com/Poly-Haven/Public-API/blob/master/ToS.md",
+  "reproduction": "Run derive_assets.py with bundled Pillow and NumPy. Original SHA-256 values are verified before processing."
+}

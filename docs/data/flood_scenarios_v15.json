@@ -1,0 +1,1825 @@
+{
+  "schema": "cheonggye-flood-edges/1",
+  "graphId": "cheonggye-v15-be166e5c",
+  "description": "No rainfall-to-depth mapping. Synthetic input only.",
+  "scenarios": [
+    {
+      "schema": "cheonggye-flood-edges/1",
+      "graphId": "cheonggye-v15-be166e5c",
+      "id": "A",
+      "label": "합성 침수 A · 전 구간 건조",
+      "provenance": "synthetic",
+      "source": "1.4 경로 회귀 시험용 수동 수심 입력 · 관측/수리 결과 아님",
+      "notHydraulicPrediction": true,
+      "rainfall": null,
+      "rainfallLinkageValidated": false,
+      "scenarioTimeSeconds": null,
+      "coordinateBasis": {
+        "horizontal": "scene_precision_v5-local-xz-m",
+        "vertical": "assumed-walkway-y-minus3-m-not-datum"
+      },
+      "edgeStates": {
+        "north:walk:1": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:2": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:3": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:4": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:5": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:6": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:7": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:8": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:9": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:10": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:11": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:12": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:13": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:14": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:15": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:16": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:17": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:18": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:19": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:20": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:21": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:22": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:23": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:24": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:25": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:26": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:27": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:28": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:29": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:30": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:31": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:32": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:33": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:34": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:35": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:36": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:37": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:38": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:39": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:40": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:41": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:42": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:43": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:44": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:45": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:46": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:47": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:48": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:49": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:50": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:51": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:52": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:53": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:54": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:55": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:56": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:57": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:58": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:59": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:60": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:61": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:62": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:63": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:64": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:65": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:66": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:67": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:68": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:69": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:70": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:71": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:1": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:2": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:3": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:4": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:5": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:6": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:7": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:8": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:9": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:10": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:11": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:12": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:13": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:14": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:15": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:16": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:17": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:18": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:19": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:20": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:21": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:22": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:23": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:24": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:25": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:26": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:27": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:28": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:29": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:30": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:31": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:32": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:33": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:34": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:35": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:36": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:37": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:38": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:39": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:40": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:41": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:42": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:43": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:44": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:45": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:46": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:47": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:48": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:49": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:50": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:51": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:52": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:53": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:54": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:55": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:56": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:57": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:58": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:59": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:60": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:61": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:62": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:63": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:64": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:78503347:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:78503347:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087643:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087643:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087645:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087645:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302093056:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302093056:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:238533393:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:238533393:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087656:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087656:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        }
+      }
+    },
+    {
+      "schema": "cheonggye-flood-edges/1",
+      "graphId": "cheonggye-v15-be166e5c",
+      "id": "B",
+      "label": "합성 침수 B · 일부 보행로 단절",
+      "provenance": "synthetic",
+      "source": "1.4 경로 회귀 시험용 수동 수심 입력 · 관측/수리 결과 아님",
+      "notHydraulicPrediction": true,
+      "rainfall": null,
+      "rainfallLinkageValidated": false,
+      "scenarioTimeSeconds": null,
+      "coordinateBasis": {
+        "horizontal": "scene_precision_v5-local-xz-m",
+        "vertical": "assumed-walkway-y-minus3-m-not-datum"
+      },
+      "edgeStates": {
+        "north:walk:1": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:2": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:3": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:4": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:5": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:6": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:7": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:8": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:9": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:10": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:11": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:12": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:13": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:14": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:15": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:16": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:17": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:18": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:19": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:20": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:21": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:22": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:23": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:24": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:25": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:26": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:27": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:28": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:29": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:30": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:31": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:32": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:33": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:34": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:35": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:36": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "north:walk:37": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "north:walk:38": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "north:walk:39": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "north:walk:40": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:41": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:42": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:43": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:44": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:45": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:46": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:47": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:48": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:49": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:50": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:51": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:52": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:53": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:54": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:55": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:56": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:57": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:58": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:59": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:60": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:61": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:62": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:63": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:64": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:65": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:66": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:67": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:68": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:69": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:70": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "north:walk:71": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:1": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:2": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:3": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:4": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:5": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:6": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:7": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:8": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:9": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:10": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:11": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:12": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:13": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:14": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:15": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:16": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:17": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:18": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:19": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:20": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:21": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:22": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:23": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:24": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:25": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:26": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:27": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:28": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:29": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:30": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:31": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:32": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:33": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:34": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:35": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:36": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:37": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:38": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:39": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:40": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:41": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:42": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:43": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:44": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:45": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:46": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:47": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:48": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:49": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:50": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:51": {
+          "depthM": 0.12,
+          "velocityMps": null
+        },
+        "south:walk:52": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:53": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:54": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:55": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:56": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:57": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:58": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:59": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:60": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:61": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:62": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:63": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "south:walk:64": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:78503347:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:78503347:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087643:connector": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "exit:302087643:stairs": {
+          "depthM": 0.35,
+          "velocityMps": null
+        },
+        "exit:302087645:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087645:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302093056:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302093056:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:238533393:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:238533393:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087656:connector": {
+          "depthM": 0,
+          "velocityMps": null
+        },
+        "exit:302087656:stairs": {
+          "depthM": 0,
+          "velocityMps": null
+        }
+      }
+    },
+    {
+      "schema": "cheonggye-flood-edges/1",
+      "graphId": "cheonggye-v15-be166e5c",
+      "id": "C",
+      "label": "합성 침수 C · 모든 간선 제외",
+      "provenance": "synthetic",
+      "source": "1.4 경로 회귀 시험용 수동 수심 입력 · 관측/수리 결과 아님",
+      "notHydraulicPrediction": true,
+      "rainfall": null,
+      "rainfallLinkageValidated": false,
+      "scenarioTimeSeconds": null,
+      "coordinateBasis": {
+        "horizontal": "scene_precision_v5-local-xz-m",
+        "vertical": "assumed-walkway-y-minus3-m-not-datum"
+      },
+      "edgeStates": {
+        "north:walk:1": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:2": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:3": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:4": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:5": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:6": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:7": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:8": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:9": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:10": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:11": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:12": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:13": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:14": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:15": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:16": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:17": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:18": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:19": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:20": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:21": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:22": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:23": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:24": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:25": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:26": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:27": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:28": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:29": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:30": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:31": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:32": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:33": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:34": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:35": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:36": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:37": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:38": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:39": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:40": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:41": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:42": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:43": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:44": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:45": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:46": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:47": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:48": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:49": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:50": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:51": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:52": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:53": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:54": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:55": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:56": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:57": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:58": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:59": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:60": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:61": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:62": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:63": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:64": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:65": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:66": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:67": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:68": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:69": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:70": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "north:walk:71": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:1": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:2": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:3": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:4": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:5": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:6": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:7": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:8": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:9": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:10": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:11": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:12": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:13": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:14": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:15": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:16": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:17": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:18": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:19": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:20": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:21": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:22": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:23": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:24": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:25": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:26": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:27": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:28": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:29": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:30": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:31": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:32": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:33": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:34": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:35": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:36": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:37": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:38": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:39": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:40": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:41": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:42": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:43": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:44": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:45": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:46": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:47": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:48": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:49": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:50": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:51": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:52": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:53": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:54": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:55": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:56": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:57": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:58": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:59": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:60": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:61": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:62": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:63": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "south:walk:64": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:78503347:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:78503347:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087643:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087643:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087645:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087645:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302093056:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302093056:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:238533393:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:238533393:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087656:connector": {
+          "depthM": 0.45,
+          "velocityMps": null
+        },
+        "exit:302087656:stairs": {
+          "depthM": 0.45,
+          "velocityMps": null
+        }
+      }
+    }
+  ]
+}

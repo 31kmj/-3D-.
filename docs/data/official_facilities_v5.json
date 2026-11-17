@@ -1,0 +1,529 @@
+{
+  "metadata": {
+    "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+    "source_sha256": "75a877ec078b42644c83c6a97e2ffb52a3bd3063629e09d50862fafa2f24970a",
+    "attribution": "서울시설공단 청계천 이동약자 노선안내",
+    "license_signal": "page shows public Nuri attribution mark; only factual records extracted, no photos/SDK/tiles copied",
+    "source_crs": "web marker lat/lon assumed WGS84-compatible; datum not declared on page",
+    "raw_records": 84,
+    "duplicates_removed": 11,
+    "quarantined": 3,
+    "aoi_records": 18,
+    "accuracy": "unknown; official source is not automatically a survey certificate"
+  },
+  "records": [
+    {
+      "kind": "toilet",
+      "name": "남대문경찰서 태평로파출소",
+      "lonlat": [
+        126.98,
+        37.568
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -238.532,
+        88.787
+      ],
+      "id": "official-1"
+    },
+    {
+      "kind": "toilet",
+      "name": "한국무역보험공사",
+      "lonlat": [
+        126.978841,
+        37.569796
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -340.916,
+        -110.551
+      ],
+      "id": "official-2"
+    },
+    {
+      "kind": "toilet",
+      "name": "시그너스빌딩",
+      "lonlat": [
+        126.9794973,
+        37.568456
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -282.941,
+        38.175
+      ],
+      "id": "official-3"
+    },
+    {
+      "kind": "toilet",
+      "name": "광일빌딩(2층)",
+      "lonlat": [
+        126.9797193,
+        37.5680919
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -263.33,
+        78.587
+      ],
+      "id": "official-4"
+    },
+    {
+      "kind": "toilet",
+      "name": "계원빌딩",
+      "lonlat": [
+        126.9854965,
+        37.5687847
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        247.055,
+        1.694
+      ],
+      "id": "official-5"
+    },
+    {
+      "kind": "toilet",
+      "name": "장교빌딩",
+      "lonlat": [
+        126.9871743,
+        37.5672472
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        395.287,
+        172.333
+      ],
+      "id": "official-6"
+    },
+    {
+      "kind": "toilet",
+      "name": "광화문 우체국 화장실",
+      "lonlat": [
+        126.9781,
+        37.5698
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -406.378,
+        -110.998
+      ],
+      "id": "official-7"
+    },
+    {
+      "kind": "toilet",
+      "name": "예금보험공사",
+      "lonlat": [
+        126.9816134,
+        37.5684894
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -95.995,
+        34.472
+      ],
+      "id": "official-8"
+    },
+    {
+      "kind": "toilet",
+      "name": "영풍문고",
+      "lonlat": [
+        126.9823161,
+        37.5697869
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -33.915,
+        -109.534
+      ],
+      "id": "official-9"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "SK본사",
+      "lonlat": [
+        126.980357,
+        37.569794
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -206.988,
+        -110.325
+      ],
+      "id": "official-10"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "서울글로벌센터",
+      "lonlat": [
+        126.98185,
+        37.5701
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -75.091,
+        -144.285
+      ],
+      "id": "official-11"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "한국관광공사 서울센터 (2층)",
+      "lonlat": [
+        126.9816134,
+        37.5684894
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -95.995,
+        34.472
+      ],
+      "id": "official-12"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "다동소공원",
+      "lonlat": [
+        126.9808,
+        37.568
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -167.856,
+        88.789
+      ],
+      "id": "official-13"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "장교빌딩",
+      "lonlat": [
+        126.9871743,
+        37.5672472
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        395.287,
+        172.333
+      ],
+      "id": "official-14"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "한외빌딩",
+      "lonlat": [
+        126.9816006,
+        37.5681784
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -97.126,
+        68.99
+      ],
+      "id": "official-15"
+    },
+    {
+      "kind": "ramp_marker",
+      "name": "청계광장~고산자교",
+      "lonlat": [
+        126.978149,
+        37.569104
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -402.053,
+        -33.75
+      ],
+      "id": "official-16"
+    },
+    {
+      "kind": "ramp_marker",
+      "name": "모전교~광통교",
+      "lonlat": [
+        126.9795,
+        37.5692
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        -282.7,
+        -44.4
+      ],
+      "id": "official-17"
+    },
+    {
+      "kind": "elevator_marker",
+      "name": "장통교~삼일교",
+      "lonlat": [
+        126.987475,
+        37.568237
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "position": [
+        421.847,
+        62.476
+      ],
+      "id": "official-18"
+    }
+  ],
+  "quarantine": [
+    {
+      "kind": "toilet",
+      "name": "창신1동 주민센터",
+      "lonlat": [
+        127.0164,
+        35.5707
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "reason": "outside Seoul plausibility envelope; no correction guessed"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "창신1동 주민센터",
+      "lonlat": [
+        127.0164,
+        35.5707
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "reason": "outside Seoul plausibility envelope; no correction guessed"
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "우산각공원 공중화장실",
+      "lonlat": [
+        37.5735,
+        37.5735
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null,
+      "reason": "outside Seoul plausibility envelope; no correction guessed"
+    }
+  ],
+  "duplicates": [
+    {
+      "kind": "toilet",
+      "name": "SK 청계로주유소",
+      "lonlat": [
+        127.0274518,
+        37.5701187
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "세운청계상가 (2층(중간 계단))",
+      "lonlat": [
+        126.9953684,
+        37.5680476
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "동평화 패션타운 6번 출입구",
+      "lonlat": [
+        127.0132438,
+        37.569424
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "청평화 시장 4개소 2번출구(2,3층)/ 9번출구(3,4층)",
+      "lonlat": [
+        127.0151382,
+        37.569489
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "신평화패션타운(3번출구)",
+      "lonlat": [
+        127.0110642,
+        37.5694135
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "성북천 합류지점 공중화장실",
+      "lonlat": [
+        127.0279553,
+        37.5737375
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "toilet",
+      "name": "청계벽산상가",
+      "lonlat": [
+        127.0311831,
+        37.5693778
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "한국도자기",
+      "lonlat": [
+        127.0270274,
+        37.5710834
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "성동장애인종합복지관",
+      "lonlat": [
+        127.033441,
+        37.5701968
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "청계천박물관",
+      "lonlat": [
+        127.0350281,
+        37.5712267
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    },
+    {
+      "kind": "accessible_toilet",
+      "name": "황학교 무인자동",
+      "lonlat": [
+        127.023417,
+        37.572211
+      ],
+      "source_url": "https://www.sisul.or.kr/open_content/cheonggye/enjoy/restroom1.jsp",
+      "coordinate_basis": "official webpage map marker literal; accuracy and current operation not field verified",
+      "elevation_m": null,
+      "width_m": null,
+      "slope": null
+    }
+  ]
+}

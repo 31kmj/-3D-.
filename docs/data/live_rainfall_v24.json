@@ -1,0 +1,18 @@
+{
+  "schema": "cheonggye-live-rainfall/1",
+  "status": "unavailable",
+  "reason": "credentials-missing",
+  "provider": "kma-aws-minute",
+  "provenance": null,
+  "stationId": null,
+  "requestedStationId": null,
+  "stationName": null,
+  "stationSelectionVerified": false,
+  "observedAt": null,
+  "fetchedAt": "2026-11-02T15:40:56+09:00",
+  "rainfall60mMm": null,
+  "unit": "mm",
+  "accumulationWindowMinutes": 60,
+  "sourceURL": "https://apihub.kma.go.kr/apiList.do?seqApi=2&seqApiSub=239",
+  "authenticatedCallVerified": false
+}
