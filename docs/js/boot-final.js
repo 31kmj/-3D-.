@@ -1,7 +1,7 @@
 // Start the accessible shell before importing the 3D dependency graph.
 (async()=>{
 const $=id=>document.getElementById(id),loading=$('loading'),stage=$('stage');
-if(!new URLSearchParams(location.search).has('demo')){const url=new URL(location.href);url.searchParams.set('demo','area-rising');history.replaceState(null,'',url)}
+if(!new URLSearchParams(location.search).has('demo')){const url=new URL(location.href);url.searchParams.set('demo','rain-routing');history.replaceState(null,'',url)}
 const options=new URLSearchParams(location.search),diagnostic=options.get('diagnostic');
 let delayed;
 const setError=(title,detail)=>{
