@@ -1,5 +1,6 @@
 // Presentation dashboard: reads the same computed state as the 3D flood map.
 // No independent hazard thresholds or fabricated chart data.
+import {createRainRouteDashboard} from './rain-route-dashboard.js';
 const $=id=>document.getElementById(id);
 const number=(value,digits=0)=>Number.isFinite(value)?value.toLocaleString('ko-KR',{maximumFractionDigits:digits}):'—';
 const svgNS='http://www.w3.org/2000/svg';
@@ -73,7 +74,7 @@ export function createDashboard(){
  // Reuse the original slider: a single change updates map, route diagnostics and charts.
  document.querySelector('label[for="rainTimeView"]').removeAttribute('for');
  $('finalTimeSlider').append($('rainTimeView'));
- let collapsed=matchMedia('(max-width:850px)').matches;
+ let collapsed=true;
  function sync(){tray.classList.toggle('charts-collapsed',collapsed);$('finalCharts').hidden=collapsed;$('toggleAnalytics').textContent=collapsed?'그래프 펼치기':'그래프 접기';$('toggleAnalytics').setAttribute('aria-expanded',String(!collapsed))}
  $('toggleAnalytics').addEventListener('click',()=>{collapsed=!collapsed;sync()});sync();
  document.addEventListener('cheonggye:panelchange',e=>{tray.hidden=e.detail.panel!=='flood'});
@@ -90,4 +91,5 @@ export function createDashboard(){
   for(const [key,label,color] of [['dryAreaM2','안전','#30916a'],['cautionAreaM2','주의','#d9aa24'],['dangerAreaM2','위험','#d95050'],['unknownAreaM2','미확인','#8d9aa5']]){const value=s.summary?.[key],row=document.createElement('div');row.className='risk-bar-row';const labelEl=document.createElement('span');labelEl.textContent=label;const track=document.createElement('span');track.className='risk-bar-track';const bar=document.createElement('i');bar.style.width=(s.valid?100*value/Math.max(1,s.summary.walkwayAreaM2):0)+'%';bar.style.background=color;track.append(bar);const count=document.createElement('b');count.textContent=s.valid?number(value):'—';row.append(labelEl,track,count);bars.append(row)}
   $('finalChartNote').textContent=s.valid?(s.area.length?'0~15분 강우 가정 · 점선은 지도 조회시각':'현재 상태만 표시 · 시간 분석은 세부 설정에서 선택'):'입력 미확인 · 0으로 간주하지 않습니다.';
  });
+ createRainRouteDashboard();
 }

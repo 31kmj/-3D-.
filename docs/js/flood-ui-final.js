@@ -29,6 +29,24 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  const arrivalMarker=new THREE.Mesh(new THREE.SphereGeometry(2.8,14,8),new THREE.MeshBasicMaterial({color:'#ef8d32'}));routeLayer.add(arrivalMarker);
  const makeLabel=(text,kind)=>{const el=document.createElement('span');el.className='evac-map-label '+kind;el.textContent=text;$('stage').append(el);return el},startLabel=makeLabel('출발','origin'),arrivalLabel=makeLabel('지상 도착점 · 안전 미검증','destination');
  const routeMaterial=new THREE.MeshBasicMaterial({color:'#67f3f5'}),routeOutlineMaterial=new THREE.MeshBasicMaterial({color:'#153a4a',transparent:true,opacity:.96});let routeMesh=null,routeOutline=null,routePoints=[],fitBounds=null,current=fixtures.scenarios[0],route=null,importState='none',importedResult=null;
+ const routeArrows=new THREE.Group();routeLayer.add(routeArrows);
+ const arrowGeometry=new THREE.ConeGeometry(1.8,4.4,3);
+ const arrowMaterial=new THREE.MeshBasicMaterial({color:'#ffffff'});
+ function drawDirectionArrows(points){
+  let travelled=0,nextArrow=12;
+  for(let i=1;i<points.length;i++){
+   const a=points[i-1],b=points[i],length=a.distanceTo(b);
+   if(length<.001)continue;
+   const direction=b.clone().sub(a).normalize();
+   while(nextArrow<travelled+length){
+    const arrow=new THREE.Mesh(arrowGeometry,arrowMaterial);
+    arrow.position.copy(a).lerp(b,(nextArrow-travelled)/length);arrow.position.y+=1.5;
+    arrow.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction);
+    arrow.renderOrder=6;routeArrows.add(arrow);nextArrow+=24;
+   }
+   travelled+=length;
+  }
+ }
  const importOptionValue='__imported_synthetic__';
  let temporalScenario=temporalFixtures.scenarios[0];
  const scopeValidation=validateScopeContract(evacuationScope);
@@ -159,7 +177,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  const diagnostic=document.createElement('output');diagnostic.id='floodDiagnostics';diagnostic.hidden=true;$('stage').append(diagnostic);
  function clearRoute(){for(const mesh of [routeMesh,routeOutline])if(mesh){routeLayer.remove(mesh);mesh.geometry.dispose()}routeMesh=null;routeOutline=null;routePoints=[];fitBounds=null;arrivalMarker.visible=false;arrivalLabel.hidden=true}
  function drawRoute(){
-  clearRoute();const start=nodeMap.get($('evacStart').value);if(start)startMarker.position.set(start.point[0],-.75,start.point[1]);
+  clearRoute();routeArrows.clear();const start=nodeMap.get($('evacStart').value);if(start)startMarker.position.set(start.point[0],-.75,start.point[1]);
   if(route.status!=='route'||route.path.length<2)return;
   const points=[];for(let i=0;i<route.path.length;i++){
    const node=route.path[i];if(i){const edge=graph.edges.find(e=>e.id===route.edgeIds[i-1]);if(edge.kind==='stairs'&&edge.path?.length>2){const path=edge.a===route.path[i-1].id?edge.path:[...edge.path].reverse(),lengths=[0];for(let k=1;k<path.length;k++)lengths.push(lengths.at(-1)+Math.hypot(path[k][0]-path[k-1][0],path[k][1]-path[k-1][1]));for(let k=1;k<path.length-1;k++){const t=lengths.at(-1)>0?lengths[k]/lengths.at(-1):k/(path.length-1),y=route.path[i-1].elevation+(node.elevation-route.path[i-1].elevation)*t;points.push(new THREE.Vector3(path[k][0],y+.65,path[k][1]))}}}
@@ -170,6 +188,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
   const end=route.path.at(-1);arrivalMarker.position.set(end.point[0],end.elevation+2,end.point[1]);arrivalMarker.visible=true;
   routeOutline=new THREE.Mesh(new THREE.TubeGeometry(curve,Math.max(24,points.length*4),1.05,7,false),routeOutlineMaterial);routeOutline.renderOrder=4;routeLayer.add(routeOutline);
   routeMesh=new THREE.Mesh(new THREE.TubeGeometry(curve,Math.max(24,points.length*4),.65,7,false),routeMaterial);routeMesh.position.y=.72;routeMesh.renderOrder=5;routeLayer.add(routeMesh);
+  drawDirectionArrows(points);
  }
  function routeFooter(){if(isRainTime())return route.status==='route'?`시간 대피 ${clock(route.departureSeconds)} → ${clock(route.arrivalSeconds)} · ${Math.round(route.lengthM)}m · ${route.exit.name}`:'시간 대피 경로 없음 · '+(route.reason||'미확인');if(isRainfall())return route.status==='route'?`시제품 위험가중 경로 ${Math.round(route.lengthM)}m · 비용 ${Math.round(route.costM)}m · ${route.exit.name} · 현장 미검증`:'현재 강우 조건의 경로 없음 · '+(route.reason||'미확인');return route.status==='route'?(isTemporal()?`합성 도착 ${route.arrivalSeconds}초 · ${Math.round(route.lengthM)}m · `:`가정 최단 ${Math.round(route.lengthM)}m · `)+route.exit.name+' · 현장 미검증':'가정 경로 미산출 · 실제 운영·무단차 연결은 별도 확인 필요'}
  function temporalHazard(edge){const time=Number($('temporalViewTime').value),state=temporalStateAt(temporalScenario.edgeSeries[edge.id],time,temporalScenario.horizonSeconds);if(state.unknown)return {code:'unknown',color:'#7d8998'};if(state.depthM>0)return edgeHazard(edge,{edgeStates:{[edge.id]:{depthM:state.depthM}}});if(state.blocked)return {code:'closed',color:'#865d9e'};return {code:'dry',color:'#16866a'}}

@@ -413,6 +413,7 @@ try {
   let pointerTime=0;
   const showBuildingRecord=hit=>{hovered=hit.id;const strong=document.createElement('strong'),p=document.createElement('p'),label=document.createElement('span');label.className='eyebrow';label.textContent='선택한 건물';strong.textContent=hit.name||`지도 건물 #${hit.id}`;p.textContent=`${hit.height.toFixed(1)}m · ${hit.height_basis==='osm_height_tag'?'OSM 높이 태그 (현장 미확인)':hit.height_basis==='levels_times_3.2_assumed'?'층수 × 3.2m 추정':'높이 미확보 · 12m 임의 표현'}`;$('selection').replaceChildren(label,strong,p);const landmark=landmarkContracts[hit.id];if(landmark){const detail=document.createElement('p'),limit=document.createElement('p'),link=document.createElement('a');detail.textContent=landmark.features+' · '+landmark.officialFloors;limit.textContent=landmark.limit;link.href=landmark.url;link.target='_blank';link.rel='noreferrer';link.textContent=landmark.source+' ↗';$('selection').append(detail,limit,link)}};
   const inspectBuilding=event=>{
+    if(stage.dataset.pickStart==='true')return;
     if(event.type==='pointermove'&&performance.now()-pointerTime<80)return;pointerTime=performance.now();
     if(event.buttons||!groups.buildings.visible)return;
     const rect=renderer.domElement.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-((event.clientY-rect.top)/rect.height)*2+1);raycaster.setFromCamera(pointer,camera);
@@ -490,6 +491,40 @@ try {
     let out=$('routeFitDiagnostics');if(!out){out=document.createElement('output');out.id='routeFitDiagnostics';out.hidden=true;stage.append(out)}out.textContent=JSON.stringify(routeFitRecord);
   }
   const flood=createFloodUI({data,fixtures:floodFixtures,temporalFixtures,evacuationScope,scene,shell,onFocus(point){setView('evac',new THREE.Vector3(point[0],-2,point[1]))},onFitRoute:fitEvacuationRoute,onReturnToFlood(){updateDepth(.8,0)}});
+  let pickOrigin=null;
+  const pickCandidates=flood.graph.nodes.filter(node=>/^(north|south):\d+$/.test(node.id));
+  function setStartPicking(active,message=''){
+    stage.dataset.pickStart=String(active);
+    document.dispatchEvent(new CustomEvent('cheonggye:pickstart',{detail:{active,message}}));
+  }
+  $('pickEvacStart').addEventListener('click',()=>{
+    const active=stage.dataset.pickStart!=='true';
+    setStartPicking(active);
+    if(active){shell.activatePanel('flood');shell.showMap();}
+  });
+  renderer.domElement.addEventListener('pointerdown',event=>{pickOrigin=[event.clientX,event.clientY];});
+  renderer.domElement.addEventListener('click',event=>{
+    if(stage.dataset.pickStart!=='true'||!pickOrigin||Math.hypot(event.clientX-pickOrigin[0],event.clientY-pickOrigin[1])>7)return;
+    const rect=renderer.domElement.getBoundingClientRect();
+    let nearest=null,best=34;
+    for(const node of pickCandidates){
+      const screen=new THREE.Vector3(node.point[0],-2.4,node.point[1]).project(camera);
+      if(screen.z< -1||screen.z>1)continue;
+      const distance=Math.hypot(rect.left+(screen.x+1)*rect.width/2-event.clientX,rect.top+(1-screen.y)*rect.height/2-event.clientY);
+      if(distance<best){best=distance;nearest=node;}
+    }
+    if(!nearest){setStartPicking(true,'산책로에 더 가깝게 눌러 주세요. 회전·확대 후 선택할 수 있습니다.');return;}
+    let option=[...$('evacStart').options].find(item=>item.value===nearest.id);
+    if(!option){
+      $('evacStart').querySelector('option[data-map-picked]')?.remove();
+      option=new Option((nearest.bank==='north'?'북안':'남안')+' · 지도 선택 지점',nearest.id);
+      option.dataset.mapPicked='true';$('evacStart').add(option);
+    }
+    $('evacStart').value=nearest.id;
+    $('evacStart').dispatchEvent(new Event('change',{bubbles:true}));
+    setStartPicking(false,'지도에서 출발 위치를 선택했습니다.');
+  });
+  renderer.domElement.addEventListener('keydown',event=>{if(event.key==='Escape')setStartPicking(false);});
   function showHazardDemo(high){
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:'75',rainfallDuration:'30',rainFuture:'rising',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:high?'2.5':'0.5',facilityMode:'off',boundaryMode:'legacy'};
