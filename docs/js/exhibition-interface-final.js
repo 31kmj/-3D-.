@@ -14,11 +14,13 @@ export function createExhibitionInterface(){
  const actions=document.createElement('div');actions.className='rain-hud-actions';
  actions.append($('playRainDemo'));
  const calculate=document.createElement('a');calculate.href='#routeCalculator';calculate.textContent='대피경로 계산';calculate.id='openRouteCalculator';actions.append(calculate);
- hud.append(actions,$('rainDemoStatus'));stage.append(hud);
+ hud.append(actions,$('rainDemoStatus'));document.querySelector('.final-analytics .analytics-heading').after(hud);
 
  const tools=document.createElement('div');tools.className='map-presentation-tools';
  tools.innerHTML='<button id="mapOnly" type="button" aria-pressed="false">지도 크게</button><button id="rotateScene" type="button" aria-pressed="false" disabled>자동 회전</button>';
  stage.append(tools);
+ tools.append($('quality'),$('lighting'));
+ document.querySelector('.display-buttons')?.remove();
  const scrollHint=document.createElement('a');scrollHint.className='map-scroll-hint';scrollHint.href='#routeCalculator';scrollHint.textContent='아래로 내려 대피경로 계산';stage.append(scrollHint);
  const restore=document.createElement('button');restore.id='restoreMapUI';restore.type='button';restore.textContent='화면 복원';restore.hidden=true;document.body.append(restore);
  let focusMode=false,lastScroll=0;

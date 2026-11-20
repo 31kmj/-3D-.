@@ -28,9 +28,7 @@ export function connectExhibitionScene({camera,controls,stage,shell,setView,grap
  document.addEventListener('cheonggye:viewrequest',e=>{rotation(false);setView(e.detail.view)});
  document.addEventListener('cheonggye:mapfocus',()=>{rotation(false);document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'))});
  document.querySelectorAll('.view-buttons button').forEach(b=>b.addEventListener('click',()=>{rotation(false);document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'))}));
- const directory=document.createElement('nav');directory.className='bridge-directory';directory.setAttribute('aria-label','주요 교량으로 이동');directory.innerHTML='<span>교량 이동</span>';stage.append(directory);
  const bridgeButtons=new Map();
- for(const bridge of data.bridges){const b=document.createElement('button');b.type='button';b.textContent=bridge.name;b.addEventListener('click',()=>{rotation(false);document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'));focusBridge(bridge.name)});directory.append(b);bridgeButtons.set(bridge.name,b)}
  function pick(value,message=''){
   picking=value;stage.dataset.pickingStart=String(value);rotation(false);
   document.dispatchEvent(new CustomEvent('cheonggye:pickstate',{detail:{active:value,message}}));

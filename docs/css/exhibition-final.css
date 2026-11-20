@@ -75,3 +75,17 @@ body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hi
 @media(max-width:850px){.exhibition-layout .workspace{min-height:560px}.rain-hud{top:116px;left:12px;width:min(300px,calc(100% - 24px));padding:11px 14px}.map-presentation-tools{top:70px;right:12px}.map-presentation-tools button{font-size:10px;padding:8px 10px}.bridge-directory{right:12px;top:161px}.bridge-directory>span{display:none}.bridge-directory button{min-width:52px;padding:5px 7px;font-size:9px}.exhibition-layout .compass{display:none}.exhibition-layout .final-analytics{right:12px;left:auto;width:calc(100% - 24px);bottom:26px}.map-label{font-size:10px!important;padding:5px 7px!important}.route-workbench{padding:30px 18px}.workbench-heading{display:block}.workbench-heading h2{font-size:23px}.back-to-map{display:inline-block;margin-top:8px}.calculator-content{grid-template-columns:1fr;gap:16px}.calculator-content>div{padding:20px}.calculator-tabs{gap:0}.calculator-tabs button{flex:1;padding:13px 7px;font-size:13px}.exhibition-layout .notice-stack{left:12px;bottom:115px;max-width:205px}.exhibition-layout .brand small{font-size:9px}}
 @media(max-width:600px){.exhibition-layout .workspace{height:calc(100dvh - 58px)}.rain-hud{width:calc(100% - 88px);max-width:300px;box-sizing:border-box}.rain-hud output{font-size:21px}.rain-hud-heading{font-size:12px}.rain-hud-heading span{font-size:9px}.rain-hud>small{display:none}.rain-hud-actions{margin-top:4px}#rainDemoStatus{font-size:9px}.exhibition-layout .view-buttons button{padding:7px 8px}.exhibition-layout .view-toolbar{left:12px;right:12px}.exhibition-layout .display-buttons{top:43px}.map-presentation-tools{top:85px}.rain-hud{top:132px}.bridge-directory{top:183px}.workbench-heading .eyebrow{font-size:9px}.calculator-content p{font-size:12px}.facility-summary-row{display:block}.facility-summary-row span{display:block;margin-top:5px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Compact map controls: keep rainfall with the analysis, leave the map clear. */
+.exhibition-layout .final-analytics .rain-hud{position:static;width:100%;max-width:none;box-sizing:border-box;padding:8px 0 4px;margin:5px 0 7px;background:none;border:0;border-bottom:1px solid #d7e4e5;border-radius:0;box-shadow:none;pointer-events:auto}
+.final-analytics .rain-hud-heading,.final-analytics .rain-hud>small{display:none}
+.final-analytics .rain-hud>label{font-size:12px}
+.final-analytics .rain-hud output{font-size:21px}
+.final-analytics .rain-hud input[type=range]{height:28px;margin:0}
+.final-analytics .rain-hud-actions{margin-top:2px}
+.final-analytics .rain-hud-actions button,.final-analytics .rain-hud-actions a{min-height:28px;padding:5px 8px;font-size:11px}
+.final-analytics #rainDemoStatus{margin:4px 0 0;font-size:10px}
+.exhibition-layout .map-presentation-tools{top:18px;right:20px;display:flex;flex-wrap:nowrap;gap:5px}
+.exhibition-layout .map-presentation-tools button{min-height:30px;padding:6px 9px;font-size:11px;white-space:nowrap;border-radius:6px;box-shadow:none}
+.exhibition-layout .compass{top:72px;right:22px}
+@media(max-width:850px){.exhibition-layout .map-presentation-tools{top:54px;right:12px;gap:4px}.exhibition-layout .map-presentation-tools button{padding:6px 8px;font-size:10px;min-height:29px}.exhibition-layout .final-analytics .rain-hud{padding-top:5px;margin-top:3px}.final-analytics .rain-hud output{font-size:19px}}
