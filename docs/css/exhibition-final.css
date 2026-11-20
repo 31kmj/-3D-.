@@ -1,7 +1,7 @@
 /* Exhibition layout: a full first-screen map, with calculation below it. */
 html{scroll-behavior:smooth;scroll-padding-top:12px}
 body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hidden;overflow-y:auto;background:#f3f7f7}
-.exhibition-layout .workspace{flex:none;height:calc(100dvh - 62px);min-height:560px;grid-template-rows:minmax(0,1fr);align-items:stretch;overflow:hidden}
+.exhibition-layout .workspace{flex:none;height:calc(100dvh - 62px);min-height:560px;grid-template-rows:minmax(0,1fr);align-items:stretch;overflow:hidden;overflow-anchor:none}
 .exhibition-layout #stage{height:100%;min-height:0;max-height:100%;align-self:stretch}
 .exhibition-layout aside{height:100%;min-height:0;box-sizing:border-box;overflow-y:auto}
 .exhibition-layout header{position:relative;z-index:12}
