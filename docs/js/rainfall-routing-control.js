@@ -22,12 +22,15 @@ export function connectRainfallRouting() {
   let focusNextRoute = false;
   let previousRoute = null;
   let reference=null,demoTimer=null,playing=false;
+  let suppressRouteFocus=false,demoStarted=0;
   const playButton=document.createElement('button');playButton.id='playRainDemo';playButton.type='button';
   playButton.textContent='자동 시연';playButton.setAttribute('aria-pressed','false');
   element('toggleAnalytics').before(playButton);
   function stopDemo(message){
     clearTimeout(demoTimer);playing=false;playButton.textContent='자동 시연';playButton.setAttribute('aria-pressed','false');
     if(message)element('rainDemoStatus').textContent=message;
+    element('stage').dataset.demoPlaying='false';
+    document.dispatchEvent(new CustomEvent('cheonggye:demostate',{detail:{playing:false}}));
   }
   function resetReference(){document.dispatchEvent(new CustomEvent('cheonggye:comparisonreset'));}
   function resetDemoConditions(){
@@ -36,19 +39,25 @@ export function connectRainfallRouting() {
     resetReference();
   }
   document.addEventListener('cheonggye:comparisonreset',()=>{reference=null;previousRoute=null});
-  function setRain(value){
-    clearTimeout(timer);element('routingRain').value=String(value);element('routingRainValue').textContent=value+' mm/h';applyRainfall();
+  function setRain(value,focus=true){
+    suppressRouteFocus=!focus;clearTimeout(timer);element('routingRain').value=String(value);element('routingRainValue').textContent=value+' mm/h';applyRainfall();
   }
   playButton.addEventListener('click',()=>{
     if(playing){stopDemo('시연 일시정지 · 현재 조건을 유지합니다.');return;}
-    clearTimeout(timer);resetDemoConditions();playing=true;playButton.textContent='시연 정지';playButton.setAttribute('aria-pressed','true');
+    clearTimeout(timer);resetDemoConditions();element('evacStart').value='north:32';playing=true;playButton.textContent='시연 정지';playButton.setAttribute('aria-pressed','true');
     if(element('toggleAnalytics').getAttribute('aria-expanded')==='false')element('toggleAnalytics').click();
     window.cheonggyeV32Shell?.showMap();
-    const steps=[75,100,150];
+    demoStarted=performance.now();element('stage').dataset.demoPlaying='true';
+    document.dispatchEvent(new CustomEvent('cheonggye:demostate',{detail:{playing:true}}));
+    const steps=[{rain:75,view:'overview',label:'전체 구간'},{rain:75,view:'detail',label:'하천과 교량'},
+      {rain:75,view:'walk',label:'산책로 시점'},{rain:100,view:'top',label:'강우 증가와 위험색'},
+      {rain:150,view:'route',label:'변경된 대피경로'},{rain:150,view:'overview',label:'전체 결과'}];
     function advance(index){
-      if(index>=steps.length){stopDemo('시연 완료 · 각 강우가 30분 지속되는 독립 가정입니다.');return;}
-      element('rainDemoStatus').textContent=`조건 비교 ${index+1}/3 · ${steps[index]}mm/h × 30분 가정`;
-      setRain(steps[index]);demoTimer=setTimeout(()=>advance(index+1),6000);
+      if(index>=steps.length){element('stage').dataset.demoElapsedMs=String(Math.round(performance.now()-demoStarted));stopDemo('24초 시연 완료 · 각 강우는 독립적인 30분 지속 가정입니다.');return;}
+      const step=steps[index];element('rainDemoStatus').textContent=`${index+1}/6 · ${step.label} · ${step.rain}mm/h · 북안50%`;
+      element('stage').dataset.demoStep=String(index+1);setRain(step.rain,false);
+      if(step.view==='route')element('fitEvacRoute').click();else document.dispatchEvent(new CustomEvent('cheonggye:viewrequest',{detail:{view:step.view,source:'demo'}}));
+      demoTimer=setTimeout(()=>advance(index+1),4000);
     }
     advance(0);
   });
@@ -59,9 +68,11 @@ export function connectRainfallRouting() {
   document.addEventListener('change',event=>{
     if(playing&&event.isTrusted&&event.target.closest('#controlsPanel'))stopDemo('설정을 변경해 자동 시연을 멈췄습니다.');
   });
+  document.addEventListener('cheonggye:manualcamera',()=>{if(playing)stopDemo('지도 조작으로 자동 시연을 멈췄습니다.')});
+  document.addEventListener('cheonggye:rotationrequest',()=>{if(playing)stopDemo('자동 회전을 위해 시연을 멈췄습니다.')});
 
   function applyRainfall() {
-    focusNextRoute = true;
+    focusNextRoute = !suppressRouteFocus;suppressRouteFocus=false;
     // Use the existing declared prototype conditions for an isolated rain comparison.
     const inputs = {
       evacMode: 'rainfall', rainSource: 'manual',

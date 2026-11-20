@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import {HISTORY_APPLICATION,validateRainfallHistory,calculateHistoricalRainfall} from './rainfall-history-v32.js';
 import {BOUNDARY_APPLICATION,resolveBoundaryContext} from './boundary-rainfall-v32.js';
-import {createInundationAreaUI} from './inundation-area-ui-v32.js';
+import {createInundationAreaUI} from './inundation-area-ui-final.js?rev=eleven-20261120';
+import {displayRiskColor} from './display-palette-final.js?rev=eleven-20261120';
 import {buildFloodGraph,edgeHazard,validateFloodResult,findEvacuationRoute} from './flood-engine-v15.js';
 import {STUDY_PROFILES,temporalStateAt,findTemporalEvacuationRoute,validateScopeContract} from './temporal-evac-v19.js';
 import {RAIN_MODEL,calculateRainfallFlood,unknownRainResult,rainfallHazard,findRainfallRoute} from './rainfall-prototype-v32.js';
@@ -23,12 +24,16 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  const facilityInventory=buildFacilityInventory(data,graph);let facilityContext=resolveFacilityContext(facilityInventory),facilityStates=[];
  const overlay=new THREE.Group(),routeLayer=new THREE.Group();scene.add(overlay,routeLayer);
  const buffers=buildOverlayBuffers(graph),geometry=new THREE.BufferGeometry(),colors=new Float32Array(buffers.positions.length);geometry.setAttribute('position',new THREE.BufferAttribute(buffers.positions,3));geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));geometry.setIndex(new THREE.BufferAttribute(buffers.indices,1));geometry.computeBoundingSphere();
- const overlayMaterial=new THREE.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:.79,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-3,depthWrite:false}),overlayMesh=new THREE.Mesh(geometry,overlayMaterial);overlayMesh.renderOrder=3;overlay.add(overlayMesh);
+ const overlayMaterial=new THREE.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:.24,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-3,depthWrite:false}),overlayMesh=new THREE.Mesh(geometry,overlayMaterial);overlayMesh.renderOrder=3;overlay.add(overlayMesh);
+ $('stage').dataset.riskLineOpacity=String(overlayMaterial.opacity);
  const overlayStats={strategy:'one-indexed-vertex-colour-mesh',baselineMeshCount:buffers.ranges.length,overlayMeshCount:1,vertexCount:buffers.positions.length/3,triangleCount:buffers.indices.length/3,positionHash:hashBytes(buffers.positions),indexHash:hashBytes(buffers.indices),hashAlgorithm:'fnv1a32-bytes-not-cryptographic',geometryUnchangedAcrossScenarios:true,colorUpdates:0};
  const startMaterial=new THREE.MeshBasicMaterial({color:'#1e3a73'}),startMarker=new THREE.Mesh(new THREE.SphereGeometry(2.3,14,8),startMaterial);routeLayer.add(startMarker);
  const arrivalMarker=new THREE.Mesh(new THREE.SphereGeometry(2.8,14,8),new THREE.MeshBasicMaterial({color:'#ef8d32'}));routeLayer.add(arrivalMarker);
  const makeLabel=(text,kind)=>{const el=document.createElement('span');el.className='evac-map-label '+kind;el.textContent=text;$('stage').append(el);return el},startLabel=makeLabel('출발','origin'),arrivalLabel=makeLabel('지상 도착점 · 안전 미검증','destination');
- const routeMaterial=new THREE.MeshBasicMaterial({color:'#67f3f5'}),routeOutlineMaterial=new THREE.MeshBasicMaterial({color:'#153a4a',transparent:true,opacity:.96});let routeMesh=null,routeOutline=null,routePoints=[],fitBounds=null,current=fixtures.scenarios[0],route=null,importState='none',importedResult=null;
+ const routeMaterial=new THREE.MeshBasicMaterial({color:'#168b86'}),routeOutlineMaterial=new THREE.MeshBasicMaterial({color:'#f4fffc',transparent:true,opacity:.96});let routeMesh=null,routeOutline=null,routePoints=[],fitBounds=null,current=fixtures.scenarios[0],route=null,importState='none',importedResult=null;
+ const arrowGeometry=new THREE.BufferGeometry();arrowGeometry.setAttribute('position',new THREE.Float32BufferAttribute([0,0,.85,-.43,0,-.55,0,0,-.25,.43,0,-.55],3));arrowGeometry.setIndex([0,1,2,0,2,3]);arrowGeometry.computeVertexNormals();
+ const routeArrows=new THREE.InstancedMesh(arrowGeometry,new THREE.MeshBasicMaterial({color:'#0d6f6c',side:THREE.DoubleSide}),128);routeArrows.count=0;routeArrows.renderOrder=7;routeArrows.frustumCulled=false;routeLayer.add(routeArrows);
+ const arrowDummy=new THREE.Object3D();
  const importOptionValue='__imported_synthetic__';
  let temporalScenario=temporalFixtures.scenarios[0];
  const scopeValidation=validateScopeContract(evacuationScope);
@@ -157,19 +162,33 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  if(graph.starts[2])$('evacStart').value=graph.starts[2].id;
  for(const exit of graph.exits){const label=document.createElement('label');label.className='exit-toggle';const input=document.createElement('input');input.type='checkbox';input.value=exit.id;input.setAttribute('aria-label',exit.name+' 대피방향 합성 차단');input.addEventListener('change',recompute);const span=document.createElement('span');span.textContent=exit.name+' · '+(exit.bank==='north'?'북안':'남안');label.append(input,span);$('exitClosures').append(label)}
  const diagnostic=document.createElement('output');diagnostic.id='floodDiagnostics';diagnostic.hidden=true;$('stage').append(diagnostic);
- function clearRoute(){for(const mesh of [routeMesh,routeOutline])if(mesh){routeLayer.remove(mesh);mesh.geometry.dispose()}routeMesh=null;routeOutline=null;routePoints=[];fitBounds=null;arrivalMarker.visible=false;arrivalLabel.hidden=true}
+ function clearRoute(){for(const mesh of [routeMesh,routeOutline])if(mesh){routeLayer.remove(mesh);mesh.geometry.dispose()}routeMesh=null;routeOutline=null;routePoints=[];fitBounds=null;arrivalMarker.visible=false;arrivalLabel.hidden=true;routeArrows.count=0;$('stage').dataset.routeArrowCount='0'}
  function drawRoute(){
   clearRoute();const start=nodeMap.get($('evacStart').value);if(start)startMarker.position.set(start.point[0],-.75,start.point[1]);
   if(route.status!=='route'||route.path.length<2)return;
   const points=[];for(let i=0;i<route.path.length;i++){
-   const node=route.path[i];if(i){const edge=graph.edges.find(e=>e.id===route.edgeIds[i-1]);if(edge.kind==='stairs'&&edge.path?.length>2){const path=edge.a===route.path[i-1].id?edge.path:[...edge.path].reverse(),lengths=[0];for(let k=1;k<path.length;k++)lengths.push(lengths.at(-1)+Math.hypot(path[k][0]-path[k-1][0],path[k][1]-path[k-1][1]));for(let k=1;k<path.length-1;k++){const t=lengths.at(-1)>0?lengths[k]/lengths.at(-1):k/(path.length-1),y=route.path[i-1].elevation+(node.elevation-route.path[i-1].elevation)*t;points.push(new THREE.Vector3(path[k][0],y+.65,path[k][1]))}}}
-   points.push(new THREE.Vector3(node.point[0],node.elevation+.65,node.point[1]));
+   const node=route.path[i];if(i){const edge=graph.edges.find(e=>e.id===route.edgeIds[i-1]);if(edge.kind==='stairs'&&edge.path?.length>2){const path=edge.a===route.path[i-1].id?edge.path:[...edge.path].reverse(),lengths=[0];for(let k=1;k<path.length;k++)lengths.push(lengths.at(-1)+Math.hypot(path[k][0]-path[k-1][0],path[k][1]-path[k-1][1]));for(let k=1;k<path.length-1;k++){const t=lengths.at(-1)>0?lengths[k]/lengths.at(-1):k/(path.length-1),y=route.path[i-1].elevation+(node.elevation-route.path[i-1].elevation)*t;points.push(new THREE.Vector3(path[k][0],y+.18,path[k][1]))}}}
+   points.push(new THREE.Vector3(node.point[0],node.elevation+.18,node.point[1]));
   }
   const curve=new THREE.CurvePath();for(let i=1;i<points.length;i++)if(points[i].distanceTo(points[i-1])>.001)curve.add(new THREE.LineCurve3(points[i-1],points[i]));if(!curve.curves.length)return;
   routePoints=points.map(p=>p.toArray());fitBounds=routeFitBounds([...routePoints,startMarker.position.toArray(),route.path.at(-1).point.length===2?[route.path.at(-1).point[0],route.path.at(-1).elevation+2,route.path.at(-1).point[1]]:routePoints.at(-1)]);
   const end=route.path.at(-1);arrivalMarker.position.set(end.point[0],end.elevation+2,end.point[1]);arrivalMarker.visible=true;
-  routeOutline=new THREE.Mesh(new THREE.TubeGeometry(curve,Math.max(24,points.length*4),1.05,7,false),routeOutlineMaterial);routeOutline.renderOrder=4;routeLayer.add(routeOutline);
-  routeMesh=new THREE.Mesh(new THREE.TubeGeometry(curve,Math.max(24,points.length*4),.65,7,false),routeMaterial);routeMesh.position.y=.72;routeMesh.renderOrder=5;routeLayer.add(routeMesh);
+  function ribbonGeometry(halfWidth,lift){
+   const vertices=[],indices=[];
+   for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz);if(len<.001)continue;const nx=-dz/len*halfWidth,nz=dx/len*halfWidth,o=vertices.length/3;
+    vertices.push(a.x+nx,a.y+lift,a.z+nz,a.x-nx,a.y+lift,a.z-nz,b.x+nx,b.y+lift,b.z+nz,b.x-nx,b.y+lift,b.z-nz);indices.push(o,o+1,o+2,o+2,o+1,o+3)}
+   const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
+  }
+  routeOutlineMaterial.side=THREE.DoubleSide;routeMaterial.side=THREE.DoubleSide;
+  routeOutline=new THREE.Mesh(ribbonGeometry(.43,0),routeOutlineMaterial);routeOutline.renderOrder=4;routeLayer.add(routeOutline);
+  routeMesh=new THREE.Mesh(ribbonGeometry(.3,.025),routeMaterial);routeMesh.renderOrder=5;routeLayer.add(routeMesh);
+  let travelled=0,nextArrow=5,count=0;
+  for(let i=1;i<points.length&&count<128;i++){
+   const a=points[i-1],b=points[i],length=a.distanceTo(b);if(length<.001)continue;const direction=b.clone().sub(a).normalize();
+   while(nextArrow<travelled+length&&count<128){arrowDummy.position.copy(a).lerp(b,(nextArrow-travelled)/length);arrowDummy.position.y+=.055;arrowDummy.lookAt(arrowDummy.position.clone().add(direction));arrowDummy.updateMatrix();routeArrows.setMatrixAt(count++,arrowDummy.matrix);nextArrow+=15}
+   travelled+=length;
+  }
+  routeArrows.count=count;routeArrows.instanceMatrix.needsUpdate=true;$('stage').dataset.routeArrowCount=String(count);
  }
  function routeFooter(){if(isRainTime())return route.status==='route'?`시간 대피 ${clock(route.departureSeconds)} → ${clock(route.arrivalSeconds)} · ${Math.round(route.lengthM)}m · ${route.exit.name}`:'시간 대피 경로 없음 · '+(route.reason||'미확인');if(isRainfall())return route.status==='route'?`시제품 위험가중 경로 ${Math.round(route.lengthM)}m · 비용 ${Math.round(route.costM)}m · ${route.exit.name} · 현장 미검증`:'현재 강우 조건의 경로 없음 · '+(route.reason||'미확인');return route.status==='route'?(isTemporal()?`합성 도착 ${route.arrivalSeconds}초 · ${Math.round(route.lengthM)}m · `:`가정 최단 ${Math.round(route.lengthM)}m · `)+route.exit.name+' · 현장 미검증':'가정 경로 미산출 · 실제 운영·무단차 연결은 별도 확인 필요'}
  function temporalHazard(edge){const time=Number($('temporalViewTime').value),state=temporalStateAt(temporalScenario.edgeSeries[edge.id],time,temporalScenario.horizonSeconds);if(state.unknown)return {code:'unknown',color:'#7d8998'};if(state.depthM>0)return edgeHazard(edge,{edgeStates:{[edge.id]:{depthM:state.depthM}}});if(state.blocked)return {code:'closed',color:'#865d9e'};return {code:'dry',color:'#16866a'}}
@@ -192,7 +211,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
   else
   if(temporal){const profile=STUDY_PROFILES[$('mobilityProfile').value];$('assistanceConfirmed').disabled=!profile.requiresAssistance;$('temporalProfileBasis').textContent=`가정 속도: 평면 ${profile.walkMps}m/s · 계단 ${profile.stairsMps??'이용 제외'}${profile.stairsMps?'m/s':''} · 경사로 ${profile.rampMps}m/s. 연령 대표값 아님. 지원은 합성 가용 조건+확인 모두 필요.`;$('temporalViewTime').max=String(temporalScenario.horizonSeconds);$('departureDelay').max=String(temporalScenario.horizonSeconds);$('temporalTimeReadout').textContent=$('temporalViewTime').value+'초';route=findTemporalEvacuationRoute(graph,temporalScenario,$('evacStart').value,{profileId:profile.id,delaySeconds:$('departureDelay').value===''?NaN:Number($('departureDelay').value),closedExitIds,assistanceConfirmed:$('assistanceConfirmed').checked,requireScopeContract:true,scopeContract:evacuationScope})}
   else route=findEvacuationRoute(graph,current,$('evacStart').value,{closedExitIds});
-  const hazardClasses={},hazardEdges={},counts={dry:0,wet:0,deep:0,unknown:0,closed:0};for(const range of buffers.ranges){const edge=graph.edges.find(e=>e.id===range.edgeId),hazard=rainfall?rainfallHazard(edge,rainDisplayResult):temporal?temporalHazard(edge):edgeHazard(edge,current),color=new THREE.Color(hazard.color);counts[hazard.code]++;if(rainfall){const category=hazard.classId||hazard.code;hazardClasses[category]=(hazardClasses[category]||0)+1;hazardEdges[edge.id]={code:hazard.code,classId:hazard.classId,depthM:hazard.depthM,velocityMps:hazard.velocityMps,depthVelocity:hazard.depthVelocity,blocked:hazard.blocked,reason:hazard.reason}}for(let i=0;i<range.vertexCount;i++)color.toArray(colors,(range.vertexOffset+i)*3)}geometry.attributes.color.needsUpdate=true;overlayStats.colorUpdates++;
+  const hazardClasses={},hazardEdges={},counts={dry:0,wet:0,deep:0,unknown:0,closed:0};for(const range of buffers.ranges){const edge=graph.edges.find(e=>e.id===range.edgeId),hazard=rainfall?rainfallHazard(edge,rainDisplayResult):temporal?temporalHazard(edge):edgeHazard(edge,current),color=new THREE.Color(displayRiskColor(hazard.code));counts[hazard.code]++;if(rainfall){const category=hazard.classId||hazard.code;hazardClasses[category]=(hazardClasses[category]||0)+1;hazardEdges[edge.id]={code:hazard.code,classId:hazard.classId,depthM:hazard.depthM,velocityMps:hazard.velocityMps,depthVelocity:hazard.depthVelocity,blocked:hazard.blocked,reason:hazard.reason}}for(let i=0;i<range.vertexCount;i++)color.toArray(colors,(range.vertexOffset+i)*3)}geometry.attributes.color.needsUpdate=true;overlayStats.colorUpdates++;
   $('floodMapState').textContent=rainfall?(rainResult.valid?'강우 기반 근사 침수 · 시제품 상대등급':'강우 미확인 · 현재 위험도 산정 안 함'):(temporal?temporalScenario.label:current.label)+' · 강우에서 계산한 결과 아님';
   $('floodSource').textContent=rainfall?rainResult.source:temporal?'합성 시간 실험 · 실제 침수 예측·운영 정보 아님':'합성 실험 입력 · '+current.source;
   $('floodCount').textContent=rainfall?`건조(모형) ${counts.dry} · 주의 ${counts.wet} · 위험 ${counts.deep} · 미확인 ${counts.unknown}개 보행구간`:`건조 ${counts.dry} · 침수 ${counts.wet} · 깊은 침수 ${counts.deep} · 대피방향 차단 ${counts.closed} · 결측 ${counts.unknown}개 구간`;

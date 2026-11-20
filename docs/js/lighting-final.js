@@ -9,10 +9,10 @@ export function createLightingLab({scene,camera,controls,renderer,post,sun,hemi,
   function apply(){
     const preset=presets[$('sunDirection').value];contrast=Number($('lightContrast').value);exposure=Number($('exposure').value);shade=$('showShadows').checked;
     const direction=new THREE.Vector3(...preset.direction);if(evening)direction.y*=.38;
-    sun.color.set(evening?'#ffd0a0':preset.sun);sun.intensity=(evening?2.2:2.65)*contrast;
+    sun.color.set(evening?'#ffe0bb':preset.sun);sun.intensity=(evening?1.85:2.15)*contrast;
     hemi.color.set(evening?'#a6bedc':preset.ambient);hemi.groundColor.set(evening?'#505e69':'#6f818f');
     // Basic/light mode has no HDR environment; replace that missing diffuse fill.
-    hemi.intensity=((evening?.8:1.05)+(scene.environment?0:1.25))/contrast;
+    hemi.intensity=((evening?1.1:1.4)+(scene.environment?0:1.0))/contrast;
     // Artistic presets coordinate the background, diffuse fill and environment
     // response; no real date/time solar position is implied.
     scene.environmentIntensity=evening?.65:.8;

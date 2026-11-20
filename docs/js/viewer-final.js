@@ -1,14 +1,15 @@
 import {buildLandmark,landmarkContracts,landmarkPresets} from './landmarks-v23.js';
-import {createMarkerProjector} from './labels-v22.js';
+import {createMarkerProjector} from './labels-final.js?rev=eleven-20261120';
+import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=eleven-20261120';
 import {createFrameProfiler} from './performance-v22.js';
-import {createPresentationLook} from './presentation-look.js?rev=exhibition-20261120';
-import {createFloodUI} from './flood-ui-final.js';
+import {createPresentationLook} from './presentation-look.js?rev=eleven-20261120';
+import {createFloodUI} from './flood-ui-final.js?rev=eleven-20261120';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
 import {createPlaceSelection} from './selection-v23.js';
 import {batchEquivalentMeshes,sceneMeshMetrics} from './batching-v14.js';
 import {createLightingLab as createLegacyLighting} from './lighting-v14.js';
-import {createLightingLab as createNewLighting} from './lighting-final.js?rev=exhibition-20261120';
+import {createLightingLab as createNewLighting} from './lighting-final.js?rev=eleven-20261120';
 import {createGraphics} from './graphics-v21.js';
 import {createBankSurfaces,buildPavingBands} from './bank-surfaces-v28.js';
 import {createPhotoWater} from './water-detail-v28.js';
@@ -305,7 +306,7 @@ try {
   for(const bridge of data.bridges){
     const center=bridge.center;
     bridgeDetails.push(legacyGraphics?buildEvidenceBridge(bridge,groups.bridges,visual,buildReferenceBridge,{legacyComparison:legacyBridgeComparison}):buildFieldBridge(bridge,groups.bridges,visual,buildReferenceBridge,{waterUniform:graphics.waterUniform}));
-    const div=document.createElement('span');div.className='map-label';div.textContent=bridge.name;$('mapLabels').append(div);markerLabels.push({element:div,position:new THREE.Vector3(center[0],5,center[1])});
+    const div=document.createElement('span');div.className='map-label';div.textContent=bridge.name;div.dataset.labelKind='bridge';$('mapLabels').append(div);markerLabels.push({element:div,name:bridge.name,position:new THREE.Vector3(center[0],5,center[1])});
   }
   // Historical manual-water lab is isolated from the new flood-conditioned graph.
   function rebuildRoutes(){}
@@ -321,7 +322,7 @@ try {
   for(const [id,key] of [['showRisk','risk'],['showRoute','routes'],['showBuildings','buildings']]){groups[key].visible=$(id).checked;$(id).addEventListener('change',e=>{groups[key].visible=e.target.checked;renderer.shadowMap.needsUpdate=true;if(id==='showRoute')rebuildRoutes(curr)})};
   $('showLabels').addEventListener('change',e=>{$('mapLabels').hidden=!e.target.checked});
   // A camera preset on the modeled line; no claim of surveyed terrain or collision following.
-  const walkPreset=(()=>{
+  const legacyWalkPreset=(()=>{
     const sourceWalk=data.walks?.[0],rawPoints=sourceWalk?.points;
     if(!Array.isArray(rawPoints)||rawPoints.length<2||rawPoints.some(point=>!Array.isArray(point)||point.length<2||!point.slice(0,2).every(Number.isFinite)))return {available:false,reason:'보행 시점을 정할 산책로 좌표가 부족하거나 유효하지 않습니다.'};
     const points=ordered(rawPoints);
@@ -349,6 +350,12 @@ try {
       modeledLineLengthM:total,startDistanceM:startDistance,startFraction:.45,cameraStartXZ:start.point,targetXZ:target.point,
       lookaheadAlongLineM:lookahead,sharpTurnFallback,cameraStartOnModeledCenterline:true,presetCameraY:-1.25,assumedWalkwayY:-3,collisionDetection:false};
   })();
+  const walkPreset=chooseOpenWalk(data);
+  for(const model of landmarkModels){
+    const b=model.userData.building||data.buildings.find(b=>b.id===model.userData.landmarkDiagnostics?.buildingId);
+    if(!b)continue;const label=document.createElement('span');label.className='map-label landmark-label';label.textContent=landmarkContracts[b.id]?.name||b.name;label.dataset.labelKind='landmark';
+    const xs=b.points.map(p=>p[0]),zs=b.points.map(p=>p[1]);$('mapLabels').append(label);markerLabels.push({element:label,position:new THREE.Vector3((Math.min(...xs)+Math.max(...xs))/2,b.height+4,(Math.min(...zs)+Math.max(...zs))/2)});
+  }
   const graphicPresets=makeGraphicPresets(data);
   function graphicPresetCamera(name){
     const preset=graphicPresets[name],position=new THREE.Vector3(...preset.position),target=new THREE.Vector3(...preset.target);
@@ -505,6 +512,8 @@ try {
     let out=$('routeFitDiagnostics');if(!out){out=document.createElement('output');out.id='routeFitDiagnostics';out.hidden=true;stage.append(out)}out.textContent=JSON.stringify(routeFitRecord);
   }
   const flood=createFloodUI({data,fixtures:floodFixtures,temporalFixtures,evacuationScope,scene,shell,onFocus(point){setView('evac',new THREE.Vector3(point[0],-2,point[1]))},onFitRoute:fitEvacuationRoute,onReturnToFlood(){updateDepth(.8,0)}});
+  const exhibitionScene=connectExhibitionScene({camera,controls:ctl,stage,shell,setView,graph:flood.graph,data,renderer,focusBridge:name=>selectBridgeByName(name,'map-label')});
+  markerLabels.forEach(marker=>{marker.directoryButton=exhibitionScene.bridgeButtons.get(marker.name)});
   function showHazardDemo(high){
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:'75',rainfallDuration:'30',rainFuture:'rising',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:high?'2.5':'0.5',facilityMode:'off',boundaryMode:'legacy'};
@@ -539,7 +548,7 @@ try {
     showAreaDemo(false);
     $('evacMode').value='rainfall';
     $('evacMode').dispatchEvent(new Event('change'));
-    setView('detail');
+    setView('overview');
   });
   function showBoundaryDemo(restricted){
     shell.activatePanel('flood');
@@ -636,7 +645,7 @@ try {
 
   // Read-only diagnostics in the DOM record rendered state for repeatable QA.
   const profiler=createFrameProfiler({renderer,scene,stage,query});
-  const markerProjector=createMarkerProjector({stage,camera,markers:markerLabels});
+  const markerProjector=createMarkerProjector({stage,camera,markers:markerLabels,getOccluders:()=>[...(groups.buildings.visible?buildingMeshes.filter(o=>o.visible):[]),...(groups.context.visible?district.buildingOccluders.filter(o=>o.visible):[])]});
   const diagnostics=document.createElement('output');diagnostics.id='renderDiagnostics';diagnostics.hidden=true;stage.append(diagnostics);
 
   const benchmark=createBenchmark({button:$('benchmark'),output:$('benchmarkResult'),camera,controls:ctl,setTourView(){movingTo=null;post.shadow(new THREE.Vector3(-150,0,-23));},getState:()=>({quality:post.high?'high':'light',viewport:[stage.clientWidth,stage.clientHeight],pixelRatio:renderer.getPixelRatio(),version:31,displayVersion:'발표 마감본',legacyVersionOrdinal:32,legacyDisplayVersion:'발표 마감본',buildRevision:'final-render-20261117',versionNamespace:'final',scenario:curr,evening})});
@@ -663,7 +672,7 @@ try {
     profiler.mark('water-background');lighting.frame(now);profiler.mark('lighting');
     updateDepthPrecision();ctl.enableDamping=!shell.reducedMotion;
     if(movingTo){camera.position.lerp(movingTo.position,ease);ctl.target.lerp(movingTo.target,ease);if(camera.position.distanceTo(movingTo.position)<.08){camera.position.copy(movingTo.position);ctl.target.copy(movingTo.target);movingTo=null}}
-    ctl.update();profiler.mark('controls');flood.frame(camera);profiler.mark('flood');benchmark.frame(now);profiler.mark('benchmark');if(photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});visual.tick(waterClock,evening);if(!photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});profiler.mark('graphics');if(profiler.enabled)profiler.render(()=>post.render());else post.render();profiler.mark('post-render');
+    exhibitionScene.frame();ctl.update();profiler.mark('controls');flood.frame(camera);profiler.mark('flood');benchmark.frame(now);profiler.mark('benchmark');if(photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});visual.tick(waterClock,evening);if(!photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});profiler.mark('graphics');if(profiler.enabled)profiler.render(()=>post.render());else post.render();profiler.mark('post-render');
     if(firstFrame){
       firstFrame=false;stage.dataset.firstRenderMs=performance.now().toFixed(1);
       const resources=performance.getEntriesByType('resource').filter(entry=>{try{return new URL(entry.name).origin===location.origin}catch{return false}});

@@ -1,7 +1,8 @@
 // Presentation dashboard: reads the same computed state as the 3D flood map.
 // No independent hazard thresholds or fabricated chart data.
-import {connectRainfallRouting} from './rainfall-routing-control.js';
+import {connectRainfallRouting} from './rainfall-routing-control.js?rev=eleven-20261120';
 import {presentationSnapshot} from './presentation-analysis.js';
+import {createExhibitionInterface} from './exhibition-interface-final.js?rev=eleven-20261120';
 const $=id=>document.getElementById(id);
 const number=(value,digits=0)=>Number.isFinite(value)?value.toLocaleString('ko-KR',{maximumFractionDigits:digits}):'—';
 const svgNS='http://www.w3.org/2000/svg';
@@ -91,7 +92,7 @@ export function createDashboard(){
  // Reuse the original slider: a single change updates map, route diagnostics and charts.
  document.querySelector('label[for="rainTimeView"]').removeAttribute('for');
  $('finalTimeSlider').append($('rainTimeView'));
- let collapsed=matchMedia('(max-width:850px)').matches;
+ let collapsed=true;
  function sync(){tray.classList.toggle('charts-collapsed',collapsed);$('finalCharts').hidden=collapsed;$('toggleAnalytics').textContent=collapsed?'그래프 펼치기':'그래프 접기';$('toggleAnalytics').setAttribute('aria-expanded',String(!collapsed))}
  $('toggleAnalytics').addEventListener('click',()=>{collapsed=!collapsed;sync()});sync();
  let reference=null;
@@ -125,4 +126,5 @@ export function createDashboard(){
   $('finalChartNote').textContent=snapshot?'기준 '+number(reference.intensity)+' → 현재 '+number(snapshot.intensity)+'mm/h · 동일 '+snapshot.duration+'분 가정':s.valid?(s.area.length?'0~15분 강우 가정 · 점선은 지도 조회시각':'현재 계산 결과'):'입력 미확인 · 0으로 간주하지 않습니다.';
  });
  connectRainfallRouting();
+ createExhibitionInterface();
 }

@@ -1,0 +1,77 @@
+/* Exhibition layout: a full first-screen map, with calculation below it. */
+html{scroll-behavior:smooth;scroll-padding-top:12px}
+body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hidden;overflow-y:auto;background:#f3f7f7}
+.exhibition-layout .workspace{flex:none;height:calc(100dvh - 62px);min-height:560px;grid-template-rows:minmax(0,1fr);align-items:stretch;overflow:hidden}
+.exhibition-layout #stage{height:100%;min-height:0;max-height:100%;align-self:stretch}
+.exhibition-layout aside{height:100%;min-height:0;box-sizing:border-box;overflow-y:auto}
+.exhibition-layout header{position:relative;z-index:12}
+.exhibition-layout .brand small{font-size:10px;letter-spacing:.04em}
+.exhibition-layout .intro h1{font-size:23px}
+.exhibition-layout .view-toolbar{gap:6px}
+.exhibition-layout .view-buttons button{padding:8px 10px}
+.exhibition-layout .final-analytics{width:min(560px,calc(100% - 36px));background:rgba(250,253,253,.88);border-color:#d0dfe2;bottom:26px}
+.exhibition-layout .final-map-basis{max-width:440px}
+.exhibition-layout .risk-key i{border-radius:50%;width:8px;height:8px}
+.rain-hud{position:absolute;z-index:4;left:20px;top:78px;width:300px;padding:13px 16px;background:#fcfefeef;border:1px solid #d8e4e5;border-radius:14px;box-shadow:0 5px 22px #143d4810;color:#294c55}
+.rain-hud-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;font-size:13px}
+.rain-hud-heading span{font-size:10px;color:#6a8187}
+.rain-hud>label{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.rain-hud output{font-size:24px;font-weight:650;color:#176f68;font-variant-numeric:tabular-nums;background:#fff}
+.rain-hud input[type=range]{width:100%;height:34px;accent-color:#237c71;cursor:pointer}
+.rain-hud>small{display:block;font-size:9px;color:#71888e;text-align:center}
+.rain-hud-actions{display:flex;gap:7px;margin-top:9px;align-items:center}
+.rain-hud-actions button,.rain-hud-actions a{flex:1;border:1px solid #c8dbdb;border-radius:7px;background:#edf6f3;min-height:33px;padding:8px 7px;font-size:11px;color:#266d64;text-decoration:none;text-align:center;cursor:pointer}
+.rain-hud-actions button[aria-pressed=true]{background:#267a6d;color:white}
+#rainDemoStatus{font-size:10px;line-height:1.5;margin:8px 0 0;color:#617b82}
+.map-presentation-tools{position:absolute;right:20px;top:75px;z-index:4;display:flex;gap:7px}
+.map-presentation-tools button,.bridge-directory button{background:#f9fcfcf5;border:1px solid #d4e2e5;border-radius:7px;padding:9px 11px;color:#365d68;font-size:11px;cursor:pointer;box-shadow:0 3px 12px #183a480c}
+.map-presentation-tools [aria-pressed=true]{color:#fff;background:#27796f}
+.bridge-directory{position:absolute;z-index:3;right:20px;top:126px;display:flex;flex-direction:column;gap:5px;align-items:stretch}
+.bridge-directory>span{font-size:9px;color:#577781;text-align:center;text-shadow:0 1px #fff}
+.bridge-directory button{font-size:10px;min-width:61px;padding:6px 9px;background:#f9fcfcdf}
+.bridge-directory button[data-in-view=true]{border-color:#75aaa0;background:#eaf5f0}
+.map-scroll-hint{position:absolute;bottom:0;left:0;right:0;height:23px;z-index:4;display:flex;align-items:center;justify-content:center;background:#eef5f5d9;color:#587983;text-decoration:none;font-size:10px;touch-action:pan-y}
+.map-label{padding:6px 9px!important;border:1px solid #b5cdd2!important;background:#fcfefef2!important;box-shadow:0 3px 12px #183a4814!important;font-size:11px!important;font-weight:600;border-radius:7px!important;color:#254d59!important;white-space:nowrap;pointer-events:none}
+.map-label.landmark-label{font-size:10px!important;background:#e8eff5f2!important;color:#375269!important}
+.label-leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.exhibition-layout #mapLabels{display:block!important;pointer-events:none;position:absolute;inset:0;z-index:2}
+.exhibition-layout #mapLabels[hidden]{display:none!important}
+.exhibition-layout .field-detail-mode #mapLabels,.exhibition-layout .route-fit-mode #mapLabels{display:block!important}
+.exhibition-layout .compass{top:126px;right:111px}
+.exhibition-layout .notice-stack{left:20px;top:auto;bottom:28px;max-width:270px}
+.exhibition-layout .selection{top:260px}
+.route-workbench{max-width:1120px;margin:0 auto;padding:42px 28px 46px;color:#264a55;scroll-margin-top:10px}
+.workbench-heading{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.workbench-heading h2{font-size:27px;letter-spacing:-1px;margin:8px 0 9px}.workbench-heading p{font-size:13px;color:#6c838b}
+.back-to-map{font-size:12px;color:#2c786e;text-decoration:none;padding:10px 14px;border:1px solid #c9dcdb;background:#fff;border-radius:8px;white-space:nowrap}
+.calculator-tabs{display:flex;gap:12px;border-bottom:1px solid #d0dfe2;margin:22px 0 25px}
+.calculator-tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:14px 20px;font-size:14px;color:#768c93;cursor:pointer}
+.calculator-tabs [aria-pressed=true]{border-color:#277a6f;color:#246c63;font-weight:700}
+.calculator-content{display:grid;grid-template-columns:minmax(240px,.9fr) minmax(280px,1.3fr);gap:26px}
+.calculator-content[hidden]{display:none}.calculator-content>div{padding:24px;border:1px solid #d6e4e5;border-radius:14px;background:#fcfefe}
+.calculator-content h3{font-size:16px;margin:0 0 17px}.calculator-content p{font-size:13px;line-height:1.8;color:#637e88}
+#pickRouteStart{width:100%;min-height:43px;border:0;border-radius:7px;background:#267b70;color:#fff;font-size:14px;padding:10px 15px;cursor:pointer}
+#pickRouteStart[aria-pressed=true]{background:#d7a54c;color:#243b40}#pickRouteStart:disabled{opacity:.6;cursor:wait}
+#routeNativeStart>label{display:block;font-size:12px;color:#6c858e;margin:18px 0 8px}
+#routeNativeStart>select{width:100%;min-height:43px;padding:8px 12px;border:1px solid #cbdce0;border-radius:7px;background:#fff;color:#315561;font-size:13px}
+#routeNativeResult .evac-result{background:#eff7f4;border:1px solid #d1e3df;border-radius:10px;padding:17px;margin-bottom:16px}
+#routeNativeResult #evacState{display:block;font-size:14px;color:#286d63;margin-bottom:12px}
+#routeNativeResult dl{display:grid;grid-template-columns:90px 1fr;gap:10px;margin:10px 0;font-size:14px}#routeNativeResult dt{color:#748a92}#routeNativeResult dd{margin:0;font-weight:600;color:#2e5963}
+#routeNativeResult #fitEvacRoute{width:100%;min-height:42px;border:0;border-radius:7px;padding:10px 14px;background:#287a70;color:#fff;font-size:13px;cursor:pointer}
+#routeNativeResult #fitEvacRoute:disabled{background:#d7e2e2;color:#788d93}
+#routeNativeResult #routingChange{font-size:14px;font-weight:600;color:#28756a;margin:15px 0 8px}
+#routeNativeResult #routingReason{border-left:2px solid #a7c9c1;padding-left:10px;font-size:12px}
+#routeReset{text-align:right}#routeReset button{padding:8px 12px;border:1px solid #c6dcda;border-radius:7px;background:#f2f8f6;color:#47766c;cursor:pointer}
+.facility-summary-row{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #e0eaec;padding:10px 0}.facility-summary-row span{font-size:12px}
+.workbench-basis{font-size:11px;color:#82959c;margin-top:20px}.open-calculator-link{display:inline-block;font-size:13px;color:#257668;margin:8px 0 15px}
+.map-only{overflow:hidden!important}.map-only>header,.map-only .route-workbench,.map-only aside,.map-only #panelBackdrop{display:none!important}
+.map-only .workspace{position:fixed;inset:0;display:block;height:100dvh!important;min-height:0;width:100vw;z-index:90}.map-only #stage{height:100dvh!important;width:100vw}
+.map-only #stage>.view-toolbar,.map-only .rain-hud,.map-only .final-analytics,.map-only .map-presentation-tools,.map-only .bridge-directory,.map-only .map-scroll-hint,.map-only .notice-stack,.map-only .selection,.map-only .evac-map-label,.map-only .compass{display:none!important}
+#restoreMapUI{position:fixed;z-index:100;top:14px;right:14px;background:#f7fcfcf5;border:1px solid #a7c7c6;padding:11px 16px;border-radius:8px;color:#2e6c65;font-size:13px;cursor:pointer}
+#restoreMapUI[hidden]{display:none}
+.map-only #stage>:not(canvas):not(#mapLabels):not(.attribution):not(#loading){display:none!important}
+.map-only #placeRouteStatus,.map-only .place-route-status{display:none!important}
+#stage[data-picking-start=true]>canvas{cursor:crosshair}
+@media(max-width:850px){.exhibition-layout .workspace{min-height:560px}.rain-hud{top:116px;left:12px;width:min(300px,calc(100% - 24px));padding:11px 14px}.map-presentation-tools{top:70px;right:12px}.map-presentation-tools button{font-size:10px;padding:8px 10px}.bridge-directory{right:12px;top:161px}.bridge-directory>span{display:none}.bridge-directory button{min-width:52px;padding:5px 7px;font-size:9px}.exhibition-layout .compass{display:none}.exhibition-layout .final-analytics{right:12px;left:auto;width:calc(100% - 24px);bottom:26px}.map-label{font-size:10px!important;padding:5px 7px!important}.route-workbench{padding:30px 18px}.workbench-heading{display:block}.workbench-heading h2{font-size:23px}.back-to-map{display:inline-block;margin-top:8px}.calculator-content{grid-template-columns:1fr;gap:16px}.calculator-content>div{padding:20px}.calculator-tabs{gap:0}.calculator-tabs button{flex:1;padding:13px 7px;font-size:13px}.exhibition-layout .notice-stack{left:12px;bottom:115px;max-width:205px}.exhibition-layout .brand small{font-size:9px}}
+@media(max-width:600px){.exhibition-layout .workspace{height:calc(100dvh - 58px)}.rain-hud{width:calc(100% - 88px);max-width:300px;box-sizing:border-box}.rain-hud output{font-size:21px}.rain-hud-heading{font-size:12px}.rain-hud-heading span{font-size:9px}.rain-hud>small{display:none}.rain-hud-actions{margin-top:4px}#rainDemoStatus{font-size:9px}.exhibition-layout .view-buttons button{padding:7px 8px}.exhibition-layout .view-toolbar{left:12px;right:12px}.exhibition-layout .display-buttons{top:43px}.map-presentation-tools{top:85px}.rain-hud{top:132px}.bridge-directory{top:183px}.workbench-heading .eyebrow{font-size:9px}.calculator-content p{font-size:12px}.facility-summary-row{display:block}.facility-summary-row span{display:block;margin-top:5px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
