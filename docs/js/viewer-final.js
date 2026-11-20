@@ -1,14 +1,14 @@
 import {buildLandmark,landmarkContracts,landmarkPresets} from './landmarks-v23.js';
 import {createMarkerProjector} from './labels-v22.js';
 import {createFrameProfiler} from './performance-v22.js';
-import {createPresentationLook} from './presentation-look.js';
+import {createPresentationLook} from './presentation-look.js?rev=exhibition-20261120';
 import {createFloodUI} from './flood-ui-final.js';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
 import {createPlaceSelection} from './selection-v23.js';
 import {batchEquivalentMeshes,sceneMeshMetrics} from './batching-v14.js';
 import {createLightingLab as createLegacyLighting} from './lighting-v14.js';
-import {createLightingLab as createNewLighting} from './lighting-final.js';
+import {createLightingLab as createNewLighting} from './lighting-final.js?rev=exhibition-20261120';
 import {createGraphics} from './graphics-v21.js';
 import {createBankSurfaces,buildPavingBands} from './bank-surfaces-v28.js';
 import {createPhotoWater} from './water-detail-v28.js';
