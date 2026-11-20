@@ -77,6 +77,16 @@ export function createDashboard(){
  let collapsed=matchMedia('(max-width:850px)').matches;
  function sync(){tray.classList.toggle('charts-collapsed',collapsed);$('finalCharts').hidden=collapsed;$('toggleAnalytics').textContent=collapsed?'그래프 펼치기':'그래프 접기';$('toggleAnalytics').setAttribute('aria-expanded',String(!collapsed))}
  $('toggleAnalytics').addEventListener('click',()=>{collapsed=!collapsed;sync()});sync();
+ // Briefly reveal the route and risk colours while either map input changes.
+ let revealTimer;
+ function revealMap(){
+  clearTimeout(revealTimer);
+  tray.classList.add('is-adjusting');
+  revealTimer=setTimeout(()=>tray.classList.remove('is-adjusting'),1200);
+ }
+ document.addEventListener('input',event=>{
+  if(event.target.id==='routingRain'||event.target.id==='rainTimeView')revealMap();
+ });
  document.addEventListener('cheonggye:panelchange',e=>{tray.hidden=e.detail.panel!=='flood'});
  document.addEventListener('cheonggye:analysis',e=>{
   const d=e.detail,s=chartSeries(d),source=$('rainSource').value;

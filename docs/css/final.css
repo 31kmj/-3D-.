@@ -15,3 +15,43 @@ body{color:var(--ink);background:var(--paper)}body>header{background:#183c42;bor
 
 .rainfall-route-control label{display:flex;justify-content:space-between;align-items:center;font-size:12px}.rainfall-route-control output{font-size:19px;color:#247a70}.rainfall-route-control input[type=range]{width:100%;height:36px;accent-color:#247a70}.rainfall-route-control small{display:block;color:#86999d;font-size:9px;text-align:center}.rainfall-route-control p{font-size:10px;line-height:1.7;color:#748c91}.rainfall-route-control #routingChange{color:#24766b;font-size:12px;font-weight:600}.final-control>.final-basis{font-size:10px}
 
+/* Keep the map visible through the compact analysis overlay. */
+.final-analytics{
+ left:auto;right:18px;width:min(620px,calc(100% - 36px));box-sizing:border-box;
+ background:rgba(251,253,253,.64);backdrop-filter:none;
+ border-color:rgba(180,205,207,.6);box-shadow:0 3px 14px #183c420c;
+ color:#193d48;pointer-events:none;
+ transition:background .18s,border-color .18s;
+}
+.final-analytics button,.final-analytics input{pointer-events:auto}
+.final-analytics .final-map-basis,.final-analytics .risk-key,.final-analytics h3,
+.final-analytics #finalChartNote,.final-analytics #finalAnalysisTime{color:#355963}
+.final-analytics svg text{fill:#355963}
+.final-analytics .final-chart-grid{gap:12px}
+.final-analytics .final-chart-grid svg{height:60px}
+.final-analytics .risk-bar-row{margin:5px 0;line-height:1.3}
+.final-analytics .final-chart-grid,.final-analytics .final-map-basis,.final-analytics .risk-key{transition:opacity .18s}
+.final-analytics.is-adjusting{background:rgba(251,253,253,.12);border-color:transparent;box-shadow:none}
+.final-analytics.is-adjusting .final-chart-grid,
+.final-analytics.is-adjusting .final-map-basis,
+.final-analytics.is-adjusting .risk-key{opacity:.12}
+@media(max-width:850px){
+ .final-analytics{right:10px;left:auto;width:calc(100% - 20px);max-height:none;overflow:visible;padding:8px 10px}
+ .final-chart-grid{grid-template-columns:1fr 1fr 1fr;gap:7px}
+ .final-chart-grid article{padding-right:5px}
+ .final-chart-grid article:last-child{grid-column:auto;display:block}
+ .final-analytics .final-chart-grid svg{height:50px}
+ .final-chart-grid strong{font-size:16px}
+ #finalRiskBars{display:block}
+ .risk-bar-row{grid-template-columns:20px minmax(8px,1fr) 27px;gap:3px;margin:5px 0;font-size:8px}
+ #finalChartNote{font-size:8px;line-height:1.3}
+ .risk-key{gap:8px;margin:5px 0 7px}
+ .final-map-basis{font-size:9px}
+}
+@media(max-height:500px){
+ .final-analytics{max-height:calc(100% - 76px);overflow:auto;pointer-events:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ .final-analytics,.final-analytics .final-chart-grid,.final-analytics .final-map-basis,.final-analytics .risk-key{transition:none}
+}
+
