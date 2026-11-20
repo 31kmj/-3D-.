@@ -4,16 +4,18 @@ import * as THREE from 'three';
 export function createLightingLab({scene,camera,controls,renderer,post,sun,hemi,onReset}){
   const $=id=>document.getElementById(id);
   // Neutral daylight and a higher sun keep pale stone readable and shorten coarse overview shadows.
-  const presets={morning:{direction:[220,330,140],sun:'#fff3e3',ambient:'#dfeaf5'},noon:{direction:[0,430,150],sun:'#fffaf2',ambient:'#e6eef5'},afternoon:{direction:[-260,390,210],sun:'#fff5e9',ambient:'#dfeaf5'}};
+  const presets={morning:{direction:[220,330,140],sun:'#ffebce',ambient:'#cbdef3'},noon:{direction:[0,430,150],sun:'#fff3df',ambient:'#d7e5f5'},afternoon:{direction:[-260,390,210],sun:'#ffe1b8',ambient:'#c3d9f2'}};
   let evening=false,lastFollow=0,contrast=1,exposure=.86,shade=true;
   function apply(){
     const preset=presets[$('sunDirection').value];contrast=Number($('lightContrast').value);exposure=Number($('exposure').value);shade=$('showShadows').checked;
     const direction=new THREE.Vector3(...preset.direction);if(evening)direction.y*=.38;
-    sun.color.set(evening?'#ffd0a0':preset.sun);sun.intensity=(evening?1.65:1.85)*contrast;
-    hemi.color.set(evening?'#bac9dc':preset.ambient);hemi.groundColor.set(evening?'#686662':'#87939b');hemi.intensity=(evening?.9:1.35)/contrast;
+    sun.color.set(evening?'#ffd0a0':preset.sun);sun.intensity=(evening?2.2:2.65)*contrast;
+    hemi.color.set(evening?'#a6bedc':preset.ambient);hemi.groundColor.set(evening?'#505e69':'#6f818f');
+    // Basic/light mode has no HDR environment; replace that missing diffuse fill.
+    hemi.intensity=((evening?.8:1.05)+(scene.environment?0:1.25))/contrast;
     // Artistic presets coordinate the background, diffuse fill and environment
     // response; no real date/time solar position is implied.
-    scene.environmentIntensity=evening?.5:.65;
+    scene.environmentIntensity=evening?.65:.8;
     scene.background.set(evening?'#82949f':'#dce8f0');scene.fog.color.copy(scene.background);
     renderer.toneMappingExposure=exposure;post.direction(direction);post.setShadows(shade);post.light(evening);
     $('exposureValue').textContent=exposure.toFixed(2);$('contrastValue').textContent=contrast.toFixed(2);

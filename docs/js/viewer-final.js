@@ -1,6 +1,7 @@
 import {buildLandmark,landmarkContracts,landmarkPresets} from './landmarks-v23.js';
 import {createMarkerProjector} from './labels-v22.js';
 import {createFrameProfiler} from './performance-v22.js';
+import {createPresentationLook} from './presentation-look.js';
 import {createFloodUI} from './flood-ui-final.js';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
@@ -148,6 +149,8 @@ try {
   const surfaceStyle=graphics&&!surfaceLegacy?createBankSurfaces({data,waterUniform:graphics.waterUniform}):null;
   const photoWater=graphics&&!surfaceLegacy?createPhotoWater({data,waterUniform:graphics.waterUniform,baseWater:graphics.water}):null;
   if(photoWater){visual.water=photoWater.material;visual.tick=(now,night)=>photoWater.tick(now/1000,night);}
+  const presentationLook=graphics?createPresentationLook({renderer,art,materials,visual}):null;
+  stage.dataset.presentationLook=presentationLook?.diagnostics.id||'legacy';
   const surfaceMemory={extraBytes:(surfaceStyle?.memoryBytes||0)+(photoWater?.memoryBytes||0),budgetBytes:4194304,baselineConservativeBytes:graphics?.diagnostics.newMapGpuBytesIncludingMipmaps||0};
   surfaceMemory.conservativeTotalBytes=surfaceMemory.extraBytes+surfaceMemory.baselineConservativeBytes;
   if(surfaceMemory.conservativeTotalBytes>surfaceMemory.budgetBytes)throw Error('수변 표현 텍스처 예산을 초과했습니다.');
@@ -246,6 +249,18 @@ try {
   const water=flat(data.river_polygon,-4.2,waterMaterial);water.castShadow=false;
   const waterEdge=createWaterEdge(data.river_polygon,scene);waterEdge.position.y=-4.17;
   const district=buildContext({context:context,scene,shape,mesh,ribbon,materials,groups,core:data});
+  presentationLook?.applyContext(district.group);
+  if(presentationLook){
+    const updateContextVisibility=district.updateVisibility;
+    district.updateVisibility=()=>{
+      updateContextVisibility();
+      const visible=$('showContext').checked&&$('showBuildings').checked&&!$('hideAssumedHeight').checked&&!$('showHeightBasis').checked;
+      district.buildingOccluders.forEach(object=>{object.visible=visible});
+      stage.dataset.contextBuildingBatchesVisible=String(district.buildingOccluders.filter(object=>object.visible).length);
+    };
+    district.updateVisibility();
+    stage.dataset.presentationLookDetails=JSON.stringify(presentationLook.diagnostics);
+  }
   for(const id of ['showBuildings','showHeightBasis','hideAssumedHeight','showContext'])$(id).addEventListener('change',()=>{district.updateVisibility();post.invalidateShadow()});
   let targetWater=-4.2,depth=.8;
   function updateDepth(value,scenario=null){
@@ -364,7 +379,7 @@ try {
     if(graphicPresets[name]){const fitted=graphicPresetCamera(name);p=fitted.position;t=fitted.target}
     else if(name==='bridgeClose'){p=new THREE.Vector3(t.x-44,-.8,t.z+3);t=new THREE.Vector3(t.x,-3.2,t.z)}
     else if(name==='stoneDetail'){p=new THREE.Vector3(...gwangtongCamera.position);t=new THREE.Vector3(...gwangtongCamera.target)}
-    else if(name==='detail'){p=new THREE.Vector3(-200,8,5);t=new THREE.Vector3(-137,-1.5,-23)}
+    else if(name==='detail'){p=new THREE.Vector3(-200,10,5);t=new THREE.Vector3(-127,-1.5,-23)}
     else if(name==='compare'){p=new THREE.Vector3(-241.947,145,147.091);t=new THREE.Vector3(-146.947,0,-22.909)}
     else if(name==='walk'){p=new THREE.Vector3(walkPreset.cameraStartXZ[0],-1.25,walkPreset.cameraStartXZ[1]);t=new THREE.Vector3(walkPreset.targetXZ[0],-1.25,walkPreset.targetXZ[1]);stage.dataset.walkCameraStartOnModeledCenterline='true';stage.dataset.walkStartXZ=JSON.stringify(walkPreset.cameraStartXZ);stage.dataset.walkTargetXZ=JSON.stringify(walkPreset.targetXZ);stage.dataset.walkStartDistanceM=String(walkPreset.startDistanceM)}
     else if(name==='district'){const k=Math.max(1,1.25/camera.aspect);t=new THREE.Vector3(45,0,0);p=new THREE.Vector3(155*k,1510*k,720*k)}
@@ -386,7 +401,7 @@ try {
     $('mapModeLabel').textContent='광통교 석재 · 사진 참고 형상 / 부재 치수·표고 추정';
     if(stage.clientWidth<760)shell.showMap();
   }
-  $('viewStoneDetail').addEventListener('click',showStoneDetail);
+  $('viewStoneDetail')?.addEventListener('click',showStoneDetail);
   $('viewCompare').addEventListener('click',()=>setView('compare'));
   $('quality').addEventListener('click',()=>{post.setQuality(!post.high);$('quality').textContent=post.high?'품질: 높음':'품질: 가벼움';$('quality').setAttribute('aria-pressed',String(post.high));resize()});
   $('viewOverview').addEventListener('click',()=>setView('overview'));
@@ -405,7 +420,7 @@ try {
   $('buildingCount').textContent=meta.counts.buildings;$('stairsCount').textContent=meta.counts.stairs;
   $('sceneStatus').textContent=`교량 ${meta.counts.bridges} · 양안 산책로 · 지도 좌표 반영`;
   const basis=meta.building_height_basis;
-  const info=[['평면 위치','OpenStreetMap 공개 지도 좌표. 현장 측량과 대조 전.'],['건물 높이',`높이 태그 ${basis.osm_height_tag}개 / 층수 환산 ${basis['levels_times_3.2_assumed']}개 / 12m 임의 높이 ${basis.default_12m_assumed}개. 높이 태그도 미검증.`],['지형·수면·계단','모든 표고와 계단 단차는 시연용 가정. 현장 표고 미확보.'],['교량','평면 위치는 지도자료, 폭과 구간거리는 서울시설공단 안내자료. 5개 교량 모두 공식 제원과 사진을 재대조. 모전교 아치·광통교 석조·광교 주황 거더·장통교 지지/난간·삼일교 금속 곡면 난간을 참고. 부재 치수/표고·단면은 가정이며 완전한 복원 아님.'],['2.0 자체 표현','수면은 세계좌표 다중 잔물결과 환경 반사이며 실제 장면 반사·측정 유속이 아닙니다. 석재·포장은 자체 제작 줄눈/거칠기/범프이며 돌·풀·습윤 띠의 위치와 높이는 추정입니다. 보행 대피망 자료에 추가하지 않습니다.'],['외관·재질','2.2 삼일·SK서린 두 동은 공식 설계 설명을 참고한 별도 절차 형상입니다. 나머지 건물 창문·지붕은 7종 일반 반복 표현이며 실제 정면 사진과 다름. 포장·석축과 환경광은 Poly Haven CC0 일반 소재이며 실제 청계천 촬영 자료가 아님.'],['거리 차이',`공식 도면 합계 898m / 현재 OSM 중심선 추출 ${meta.osm_centerline_length_m}m. 차이의 원인은 아직 확인 전. 양 자료의 시·종점과 거리 정의를 대조해야 하며 강제 축척 보정하지 않음.`],['추가 시각 요소',`지도 수목 ${detailStats.mappedTrees}개와 수목열 ${detailStats.mappedTreeRows}개(7m 간격 보간), 벤치 ${detailStats.mappedBenches}개를 반영. 수관·높이·벤치 방향은 절차적 추정이며 수목의 실제 개수·수종·표고를 보증하지 않음. 횡단보도 위치는 지도 노드이며 폭·방향은 도로에서 추정.`],['자체평가','AI가 감사 관점(출처·재현성)과 교수 관점(공학적 타당성)으로 검토. 독립 감사나 교수의 실제 점수가 아님. 실측 표고·수리모형·현장검증 부재가 주요 미완성 항목.'],['V5 자료 보강',`건물 부속체 ${data.building_parts.length}개 추가(높이 태그9/층수환산2/기본12m1). 공식 경사로 안내점2·엘리베이터 안내점1·화장실 안내점15를 추출. 좌표 정확도·운영 상태는 미검증. 5개 교량 공식 폭·연장/범위와 사진을 재대조했으며 표고·세부 치수는 여전히 가정.`],['아직 필요한 자료','종·횡단 측량, 계단·출구 표고/폭, 하상, 건물 정면 사진과 이용허락, 최신 통행 상태.'],['지도 이용조건','© OpenStreetMap contributors, ODbL 1.0. 가공 공간 DB도 ODbL 1.0으로 제공.']];
+  const info=[['평면 위치','OpenStreetMap 공개 지도 좌표. 현장 측량과 대조 전.'],['건물 높이',`높이 태그 ${basis.osm_height_tag}개 / 층수 환산 ${basis['levels_times_3.2_assumed']}개 / 12m 임의 높이 ${basis.default_12m_assumed}개. 높이 태그도 미검증.`],['지형·수면·계단','모든 표고와 계단 단차는 시연용 가정. 현장 표고 미확보.'],['교량','평면 위치는 지도자료, 폭과 구간거리는 서울시설공단 안내자료. 5개 교량 모두 공식 제원과 사진을 재대조. 모전교 아치·광통교 석조·광교 주황 거더·장통교 지지/난간·삼일교 금속 곡면 난간을 참고. 부재 치수/표고·단면은 가정이며 완전한 복원 아님.'],['2.0 자체 표현','수면은 세계좌표 다중 잔물결과 환경 반사이며 실제 장면 반사·측정 유속이 아닙니다. 석재·포장은 자체 제작 줄눈/거칠기/범프이며 돌·풀·습윤 띠의 위치와 높이는 추정입니다. 보행 대피망 자료에 추가하지 않습니다.'],['외관·재질','2.2 삼일·SK서린 두 동은 공식 설계 설명을 참고한 별도 절차 형상입니다. 나머지 건물은 4종 자체 제작 입면·지붕과 외곽 건물 창문 표현이며 실제 정면 사진과 다름. 포장·석축과 환경광은 Poly Haven CC0 일반 소재이며 실제 청계천 촬영 자료가 아님.'],['거리 차이',`공식 도면 합계 898m / 현재 OSM 중심선 추출 ${meta.osm_centerline_length_m}m. 차이의 원인은 아직 확인 전. 양 자료의 시·종점과 거리 정의를 대조해야 하며 강제 축척 보정하지 않음.`],['추가 시각 요소',`지도 수목 ${detailStats.mappedTrees}개와 수목열 ${detailStats.mappedTreeRows}개(7m 간격 보간), 벤치 ${detailStats.mappedBenches}개를 반영. 수관·높이·벤치 방향은 절차적 추정이며 수목의 실제 개수·수종·표고를 보증하지 않음. 횡단보도 위치는 지도 노드이며 폭·방향은 도로에서 추정.`],['자체평가','AI가 감사 관점(출처·재현성)과 교수 관점(공학적 타당성)으로 검토. 독립 감사나 교수의 실제 점수가 아님. 실측 표고·수리모형·현장검증 부재가 주요 미완성 항목.'],['V5 자료 보강',`건물 부속체 ${data.building_parts.length}개 추가(높이 태그9/층수환산2/기본12m1). 공식 경사로 안내점2·엘리베이터 안내점1·화장실 안내점15를 추출. 좌표 정확도·운영 상태는 미검증. 5개 교량 공식 폭·연장/범위와 사진을 재대조했으며 표고·세부 치수는 여전히 가정.`],['아직 필요한 자료','종·횡단 측량, 계단·출구 표고/폭, 하상, 건물 정면 사진과 이용허락, 최신 통행 상태.'],['지도 이용조건','© OpenStreetMap contributors, ODbL 1.0. 가공 공간 DB도 ODbL 1.0으로 제공.']];
   info.unshift(['2.2 대표 건물','삼일355906424·SK서린141957173만 전용 입면/저층/옥탑으로 교체했습니다. 원래 OSM 평면·111/160m를 유지합니다. 삼일31층은 정림과 일치하나 SK 공식36층/OSM35층은 불일치입니다. 모듈·상세 치수·색도·현재 상태는 미검증이며 사진 픽셀은 사용하지 않았습니다. 두 동을 건물 전수 완료로 보지 않습니다.'],['V7 비교·강우','S-Map 2025 3D건물/배경지도·고화질을 실제 열어 비교했다. 현재 시제품의 현실 재현 우위는 입증되지 않았다. 과거 서울시 2026년8월 종로구청·중구청 10분우량을 표시하며 실제 침수 위험도는 자료 부족으로 산정 보류한다. 강우 자료는 공공누리2유형(비상업)이다.'],['V7 색상·그림자','명암/노출/표현광원 방향과 그림자 켜기·끄기, 확대/이동에 따라 갱신하는 그림자 영역을 추가. 실제 천문 일조·현장 재질 색도 검증은 아니다.'],['V6 확장 범위',`${context.metadata.width_m} × ${context.metadata.depth_m}m, 이전 대상 사각 범위의 ${context.metadata.bbox_area_ratio}배. 추가 건물 ${context.buildings.length}개는 원본 OSM 평면이며 단순 외곽 형상으로 표현. 모든 지형 Y=0은 가정이며 DEM·등고선·침투·침수 분석 결과가 아님.`],['V6 색상과 움직임','석재·물은 기존 공식 참고사진을 보고 회색·올리브 계열로 조정. 현장 색도 측정이 아님. 위험도는 색과 패턴을 병기. 사용자/OS 움직임 줄이기 설정에서 카메라·수위 전환 및 수면 이동을 멈춤.']);
   const dl=document.createElement('dl');for(const [label,value] of info){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;dl.append(dt,dd)}$('sourceSummary').append(dl);
 
@@ -524,6 +539,7 @@ try {
     showAreaDemo(false);
     $('evacMode').value='rainfall';
     $('evacMode').dispatchEvent(new Event('change'));
+    setView('detail');
   });
   function showBoundaryDemo(restricted){
     shell.activatePanel('flood');
