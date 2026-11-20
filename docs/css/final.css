@@ -18,10 +18,9 @@ body{color:var(--ink);background:var(--paper)}body>header{background:#183c42;bor
 /* Keep the map visible through the compact analysis overlay. */
 .final-analytics{
  left:auto;right:18px;width:min(620px,calc(100% - 36px));box-sizing:border-box;
- background:rgba(251,253,253,.64);backdrop-filter:none;
+ background:rgba(251,253,253,.76);backdrop-filter:none;
  border-color:rgba(180,205,207,.6);box-shadow:0 3px 14px #183c420c;
  color:#193d48;pointer-events:none;
- transition:background .18s,border-color .18s;
 }
 .final-analytics button,.final-analytics input{pointer-events:auto}
 .final-analytics .final-map-basis,.final-analytics .risk-key,.final-analytics h3,
@@ -30,21 +29,28 @@ body{color:var(--ink);background:var(--paper)}body>header{background:#183c42;bor
 .final-analytics .final-chart-grid{gap:12px}
 .final-analytics .final-chart-grid svg{height:60px}
 .final-analytics .risk-bar-row{margin:5px 0;line-height:1.3}
-.final-analytics .final-chart-grid,.final-analytics .final-map-basis,.final-analytics .risk-key{transition:opacity .18s}
-.final-analytics.is-adjusting{background:rgba(251,253,253,.12);border-color:transparent;box-shadow:none}
-.final-analytics.is-adjusting .final-chart-grid,
-.final-analytics.is-adjusting .final-map-basis,
-.final-analytics.is-adjusting .risk-key{opacity:.12}
+.final-analytics .final-chart-grid,.final-analytics .final-map-basis,.final-analytics .risk-key{opacity:1}
+.final-analytics strong{display:inline-block;background:#fff;color:#183c42;border:1px solid #dae5e7;border-radius:5px;padding:2px 6px;margin:2px 0 5px;font-weight:650;font-variant-numeric:tabular-nums}
+.final-analytics .risk-bar-row b{background:#fff;color:#183c42;border-radius:3px;padding:1px 3px;font-weight:650;font-variant-numeric:tabular-nums}
+.final-chart-grid svg text{font-size:11px;font-weight:600}
+.final-time[hidden]{display:none}
+.analytics-heading{flex-wrap:wrap;gap:6px}
+.analytics-heading>div{margin-right:auto}
+.analytics-heading button{min-height:32px;color:#234f58;background:#f4f9f9}
+#playRainDemo[aria-pressed=true]{background:#216d65;color:#fff;border-color:#216d65}
+#resetRainDemo{background:#f4f9f9;color:#315f66;border:1px solid #c9dcde;border-radius:6px;padding:7px 10px;font-size:11px;min-height:34px;cursor:pointer}
+.rainfall-route-control .routing-reason{color:#385962;font-size:11px;line-height:1.6;border-left:2px solid #b0cfc9;padding-left:8px}
+.rainfall-route-control #rainDemoStatus{font-size:10px;color:#526f78;line-height:1.5}
 @media(max-width:850px){
  .final-analytics{right:10px;left:auto;width:calc(100% - 20px);max-height:none;overflow:visible;padding:8px 10px}
  .final-chart-grid{grid-template-columns:1fr 1fr 1fr;gap:7px}
  .final-chart-grid article{padding-right:5px}
  .final-chart-grid article:last-child{grid-column:auto;display:block}
  .final-analytics .final-chart-grid svg{height:50px}
- .final-chart-grid strong{font-size:16px}
+ .final-chart-grid strong{font-size:17px}
  #finalRiskBars{display:block}
  .risk-bar-row{grid-template-columns:20px minmax(8px,1fr) 27px;gap:3px;margin:5px 0;font-size:8px}
- #finalChartNote{font-size:8px;line-height:1.3}
+ #finalChartNote{font-size:9px;line-height:1.4}
  .risk-key{gap:8px;margin:5px 0 7px}
  .final-map-basis{font-size:9px}
 }
