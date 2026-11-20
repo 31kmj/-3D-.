@@ -18,11 +18,10 @@ export function connectRainfallRouting() {
     <p id="rainDemoStatus" role="status">자동 시연: 75 → 100 → 150mm/h의 독립 조건을 비교합니다.</p>
   `;
   section.querySelector('.final-presets').replaceWith(control);
-  let timer;
-  let focusNextRoute = false;
+  let timer=null;
   let previousRoute = null;
   let reference=null,demoTimer=null,playing=false;
-  let suppressRouteFocus=false,demoStarted=0;
+  let demoStarted=0;
   const playButton=document.createElement('button');playButton.id='playRainDemo';playButton.type='button';
   playButton.textContent='자동 시연';playButton.setAttribute('aria-pressed','false');
   element('toggleAnalytics').before(playButton);
@@ -39,12 +38,12 @@ export function connectRainfallRouting() {
     resetReference();
   }
   document.addEventListener('cheonggye:comparisonreset',()=>{reference=null;previousRoute=null});
-  function setRain(value,focus=true){
-    suppressRouteFocus=!focus;clearTimeout(timer);element('routingRain').value=String(value);element('routingRainValue').textContent=value+' mm/h';applyRainfall();
+  function setRain(value){
+    clearTimeout(timer);timer=null;element('routingRain').value=String(value);element('routingRainValue').textContent=value+' mm/h';applyRainfall();
   }
   playButton.addEventListener('click',()=>{
     if(playing){stopDemo('시연 일시정지 · 현재 조건을 유지합니다.');return;}
-    clearTimeout(timer);resetDemoConditions();element('evacStart').value='north:32';playing=true;playButton.textContent='시연 정지';playButton.setAttribute('aria-pressed','true');
+    clearTimeout(timer);timer=null;resetDemoConditions();element('evacStart').value='north:32';playing=true;playButton.textContent='시연 정지';playButton.setAttribute('aria-pressed','true');
     if(element('toggleAnalytics').getAttribute('aria-expanded')==='false')element('toggleAnalytics').click();
     window.cheonggyeV32Shell?.showMap();
     demoStarted=performance.now();element('stage').dataset.demoPlaying='true';
@@ -55,7 +54,7 @@ export function connectRainfallRouting() {
     function advance(index){
       if(index>=steps.length){element('stage').dataset.demoElapsedMs=String(Math.round(performance.now()-demoStarted));stopDemo('24초 시연 완료 · 각 강우는 독립적인 30분 지속 가정입니다.');return;}
       const step=steps[index];element('rainDemoStatus').textContent=`${index+1}/6 · ${step.label} · ${step.rain}mm/h · 북안50%`;
-      element('stage').dataset.demoStep=String(index+1);setRain(step.rain,false);
+      element('stage').dataset.demoStep=String(index+1);setRain(step.rain);
       if(step.view==='route')element('fitEvacRoute').click();else document.dispatchEvent(new CustomEvent('cheonggye:viewrequest',{detail:{view:step.view,source:'demo'}}));
       demoTimer=setTimeout(()=>advance(index+1),4000);
     }
@@ -72,7 +71,6 @@ export function connectRainfallRouting() {
   document.addEventListener('cheonggye:rotationrequest',()=>{if(playing)stopDemo('자동 회전을 위해 시연을 멈췄습니다.')});
 
   function applyRainfall() {
-    focusNextRoute = !suppressRouteFocus;suppressRouteFocus=false;
     // Use the existing declared prototype conditions for an isolated rain comparison.
     const inputs = {
       evacMode: 'rainfall', rainSource: 'manual',
@@ -89,10 +87,13 @@ export function connectRainfallRouting() {
   element('routingRain').addEventListener('input', () => {
     stopDemo('수동 강우 조건을 비교합니다.');
     element('routingRainValue').textContent = element('routingRain').value + ' mm/h';
-    clearTimeout(timer);
-    timer = setTimeout(applyRainfall, 100);
+    // Throttle continuous dragging, then flush the final value on release.
+    if(timer===null)timer=setTimeout(()=>{timer=null;applyRainfall()},80);
   });
-  element('evacStart').addEventListener('change', () => {stopDemo('선택한 출발점에서 비교합니다.');focusNextRoute = true;});
+  element('routingRain').addEventListener('change',()=>{if(timer!==null){clearTimeout(timer);timer=null;applyRainfall()}});
+  element('evacStart').addEventListener('change', () => stopDemo('선택한 출발점에서 비교합니다.'));
+  document.addEventListener('cheonggye:analysisinput',()=>{if(playing)stopDemo('직접 조절해 자동 시연을 멈췄습니다.')});
+  document.addEventListener('cheonggye:presetrequest',()=>{clearTimeout(timer);timer=null;resetReference();stopDemo('선택한 예시의 독립 조건을 계산합니다.')});
   document.addEventListener('cheonggye:panelchange',event=>{if(event.detail.panel!=='flood')stopDemo('시연 일시정지')});
   document.addEventListener('cheonggye:analysis', event => {
     const analysis = event.detail;
@@ -110,18 +111,10 @@ export function connectRainfallRouting() {
       origin: analysis.startId, exit: route.exit.name, distance: Math.round(route.lengthM)
     } : null;
     const label = element('routingChange');
-    if (!focusNextRoute) {
-      label.textContent = current ? current.exit + ' · ' + current.distance + 'm'
-        : route.reason || '현재 조건에서 경로를 산정할 수 없습니다.';
-      previousRoute = current;
-      return;
-    }
-    focusNextRoute = false;
     if (current) {
       const changed = previousRoute?.origin === current.origin && previousRoute.exit !== current.exit;
       label.textContent = (changed ? previousRoute.exit + ' → ' : '')
         + current.exit + ' · ' + current.distance + 'm';
-      element('fitEvacRoute').click();
     } else {
       label.textContent = route.reason || '현재 강수량에서는 통과 가능한 대피로가 없습니다.';
     }

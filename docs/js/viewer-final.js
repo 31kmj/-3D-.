@@ -1,15 +1,15 @@
 import {buildLandmark,landmarkContracts,landmarkPresets} from './landmarks-v23.js';
-import {createMarkerProjector} from './labels-final.js?rev=compact-20261120';
-import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=compact-20261120';
+import {createMarkerProjector} from './labels-final.js?rev=interaction-20261120';
+import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=interaction-20261120';
 import {createFrameProfiler} from './performance-v22.js';
-import {createPresentationLook} from './presentation-look.js?rev=compact-20261120';
-import {createFloodUI} from './flood-ui-final.js?rev=compact-20261120';
+import {createPresentationLook} from './presentation-look.js?rev=interaction-20261120';
+import {createFloodUI} from './flood-ui-final.js?rev=interaction-20261120';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
 import {createPlaceSelection} from './selection-v23.js';
 import {batchEquivalentMeshes,sceneMeshMetrics} from './batching-v14.js';
 import {createLightingLab as createLegacyLighting} from './lighting-v14.js';
-import {createLightingLab as createNewLighting} from './lighting-final.js?rev=compact-20261120';
+import {createLightingLab as createNewLighting} from './lighting-final.js?rev=interaction-20261120';
 import {createGraphics} from './graphics-v21.js';
 import {createBankSurfaces,buildPavingBands} from './bank-surfaces-v28.js';
 import {createPhotoWater} from './water-detail-v28.js';
@@ -121,6 +121,7 @@ try {
   if(visual.mode!=='textured')window.cheonggyeV32Load?.notice(visual.mode==='basic'?'가벼운 모드 · 기본 재질로 표시합니다. 지도 자료는 동일합니다.':'일부 표현 자산을 읽지 못해 기본 재질로 표시합니다. 지도 탐색과 가상 수위는 계속 이용할 수 있습니다.');
   const ctl = new OrbitControls(camera,renderer.domElement);
   ctl.enableDamping=true;ctl.dampingFactor=.09;ctl.minDistance=7;ctl.maxDistance=3800;
+  ctl.rotateSpeed=.65;ctl.panSpeed=.75;ctl.zoomSpeed=.75;
   ctl.maxPolarAngle=1.52;ctl.screenSpacePanning=true;
   ctl.listenToKeyEvents(renderer.domElement);
   renderer.domElement.addEventListener('keydown',event=>{
@@ -129,6 +130,7 @@ try {
     offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,ctl.minDistance,ctl.maxDistance));camera.position.copy(ctl.target).add(offset);ctl.update();
   });
   ctl.addEventListener('start',()=>{movingTo=null});
+  document.addEventListener('cheonggye:analysisinput',()=>{movingTo=null;document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'))});
   const hemi = new THREE.HemisphereLight('#edf3f5','#777468',1.25);scene.add(hemi);
   const sun = new THREE.DirectionalLight('#fff1ce',2.5);
   sun.position.set(-260,540,250);sun.castShadow=true;
@@ -514,7 +516,16 @@ try {
   const flood=createFloodUI({data,fixtures:floodFixtures,temporalFixtures,evacuationScope,scene,shell,onFocus(point){setView('evac',new THREE.Vector3(point[0],-2,point[1]))},onFitRoute:fitEvacuationRoute,onReturnToFlood(){updateDepth(.8,0)}});
   const exhibitionScene=connectExhibitionScene({camera,controls:ctl,stage,shell,setView,graph:flood.graph,data,renderer,focusBridge:name=>selectBridgeByName(name,'map-label')});
   markerLabels.forEach(marker=>{marker.directoryButton=exhibitionScene.bridgeButtons.get(marker.name)});
+  function prepareExample(id){
+    document.dispatchEvent(new CustomEvent('cheonggye:presetrequest'));
+    $('exitClosures').querySelectorAll('input').forEach(input=>{input.checked=false});
+    $('requireStepFree').checked=false;$('minModelWidthM').value='0';$('maxModelGradePct').value='0';
+    $('showFloodOverlay').checked=true;$('showInundationArea').checked=true;
+    $('showFloodOverlay').dispatchEvent(new Event('change'));
+    $('stage').dataset.activeExample=id;
+  }
   function showHazardDemo(high){
+    prepareExample(high?'hazard-high':'hazard-low');
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:'75',rainfallDuration:'30',rainFuture:'rising',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:high?'2.5':'0.5',facilityMode:'off',boundaryMode:'legacy'};
     for(const [id,value]of Object.entries(values))$(id).value=value;
@@ -526,6 +537,7 @@ try {
   $('demoHazardHigh').addEventListener('click',()=>showHazardDemo(true));
   if(['hazard-low','hazard-high'].includes(query.get('demo')))queueMicrotask(()=>showHazardDemo(query.get('demo')==='hazard-high'));
   function showFacilityDemo(scenario){
+    prepareExample('facility:'+scenario);
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:'75',rainfallDuration:'30',rainFuture:'steady',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:'0.5',facilityMode:'scenario',facilityScenario:scenario,minModelWidthM:'0',maxModelGradePct:'0',boundaryMode:'legacy'};
     for(const [id,value]of Object.entries(values))$(id).value=value;
@@ -536,6 +548,7 @@ try {
   for(const [id,scenario]of [['demoFacilityOpen','all-open'],['demoFacilityEgress','gate5-egress-90'],['demoFacilityIngress','gate5-ingress-90']])$(id).addEventListener('click',()=>showFacilityDemo(scenario));
   if(facilityDemos[query.get('demo')])queueMicrotask(()=>showFacilityDemo(facilityDemos[query.get('demo')]));
   function showAreaDemo(high){
+    prepareExample(high?'area-high':'area-rising');
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:high?'150':'75',rainfallDuration:'30',rainFuture:'rising',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:'0.5',facilityMode:'scenario',facilityScenario:'all-open',minModelWidthM:'0',maxModelGradePct:'0',boundaryMode:'legacy',areaResolution:'2',areaExtent:'all',areaProbeChoice:'start'};
     for(const [id,value]of Object.entries(values))$(id).value=value;
@@ -551,6 +564,7 @@ try {
     setView('overview');
   });
   function showBoundaryDemo(restricted){
+    prepareExample(restricted?'boundary-restricted':'boundary-base');
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainSource:'manual',rainfallIntensity:'75',rainfallDuration:'30',rainFuture:'steady',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:'0.5',facilityMode:'scenario',facilityScenario:'all-open',minModelWidthM:'0',maxModelGradePct:'0',areaResolution:'2',areaExtent:'all',areaProbeChoice:'start',boundaryMode:restricted?'scenario':'legacy',boundaryAreaHa:'50',boundaryRunoff:'0.65',boundaryUpstream:restricted?'1':'0',boundaryLateral:restricted?'0.5':'0',boundaryDrainagePct:restricted?'50':'100',boundaryInitialStorage:'0'};
     for(const [id,value]of Object.entries(values))$(id).value=value;
@@ -560,12 +574,13 @@ try {
   $('demoBoundaryBaseline').addEventListener('click',()=>showBoundaryDemo(false));$('demoBoundaryRestricted').addEventListener('click',()=>showBoundaryDemo(true));
   if(['boundary-base','boundary-restricted'].includes(query.get('demo')))queueMicrotask(()=>showBoundaryDemo(query.get('demo')==='boundary-restricted'));
   async function showHistoryDemo(cursor){
+    prepareExample('history:'+cursor);
     shell.activatePanel('flood');
     const values={evacMode:'rain-time',rainFuture:'steady',rainTimeDelay:'0',rainTimeView:'0',evacStart:'north:32',hazardPolicy:'aidr-prototype',hazardVelocityMode:'assumed-constant',hazardVelocityMps:'0.5',facilityMode:'scenario',facilityScenario:'all-open',minModelWidthM:'0',maxModelGradePct:'0',areaResolution:'2',areaExtent:'all',areaProbeChoice:'start',boundaryMode:'legacy'};
     for(const [id,value]of Object.entries(values))$(id).value=value;
     $('requireStepFree').checked=false;$('rainFreeze').checked=false;$('showInundationArea').checked=true;
     setView('top');shell.showMap();
-    try{await flood.setHistoricalReplay({episodeId:'seoul-1001-202608-peak',cursor})}catch(error){$('runtimeNotice').textContent='과거 강우 재생을 준비하지 못했습니다. 자료 선택을 다시 확인해 주세요.';$('runtimeNotice').hidden=false}
+    try{const result=await flood.setHistoricalReplay({episodeId:'seoul-1001-202608-peak',cursor});if(!['ready','cancelled'].includes(result.status))throw Error(result.reason||'과거 강우 파일을 확인하세요.')}catch(error){$('runtimeNotice').textContent='과거 강우 재생 미완료 · '+error.message;$('runtimeNotice').hidden=false}
   }
   $('demoHistoryPeak').addEventListener('click',()=>showHistoryDemo(10));$('demoHistoryRecession').addEventListener('click',()=>showHistoryDemo(18));
   if(['history-peak','history-recession'].includes(query.get('demo')))queueMicrotask(()=>showHistoryDemo(query.get('demo')==='history-peak'?10:18));
@@ -670,9 +685,9 @@ try {
     if(!shell.reducedMotion)waterClock+=delta;
     const lightEase=shell.reducedMotion?1:1-Math.exp(-delta/280);scene.background.lerp(evening?backgroundEvening:backgroundDay,lightEase);scene.fog.color.copy(scene.background);
     profiler.mark('water-background');lighting.frame(now);profiler.mark('lighting');
-    updateDepthPrecision();ctl.enableDamping=!shell.reducedMotion;
+    updateDepthPrecision();ctl.enableDamping=!shell.reducedMotion;ctl.dampingFactor=1-Math.exp(-delta/150);
     if(movingTo){camera.position.lerp(movingTo.position,ease);ctl.target.lerp(movingTo.target,ease);if(camera.position.distanceTo(movingTo.position)<.08){camera.position.copy(movingTo.position);ctl.target.copy(movingTo.target);movingTo=null}}
-    exhibitionScene.frame();ctl.update();profiler.mark('controls');flood.frame(camera);profiler.mark('flood');benchmark.frame(now);profiler.mark('benchmark');if(photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});visual.tick(waterClock,evening);if(!photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});profiler.mark('graphics');if(profiler.enabled)profiler.render(()=>post.render());else post.render();profiler.mark('post-render');
+    exhibitionScene.frame();ctl.update(delta/1000);profiler.mark('controls');flood.frame(camera);profiler.mark('flood');benchmark.frame(now);profiler.mark('benchmark');if(photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});visual.tick(waterClock,evening);if(!photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});profiler.mark('graphics');if(profiler.enabled)profiler.render(()=>post.render());else post.render();profiler.mark('post-render');
     if(firstFrame){
       firstFrame=false;stage.dataset.firstRenderMs=performance.now().toFixed(1);
       const resources=performance.getEntriesByType('resource').filter(entry=>{try{return new URL(entry.name).origin===location.origin}catch{return false}});

@@ -1,23 +1,29 @@
 import * as THREE from 'three';
 
 export function createMarkerProjector({stage,camera,markers,getOccluders=()=>[]}){
- const p=new THREE.Vector3(),ray=new THREE.Raycaster(),lastCamera=new THREE.Vector3(Infinity,0,0);
+ const p=new THREE.Vector3(),ray=new THREE.Raycaster(),lastCamera=new THREE.Vector3(Infinity,0,0),samplePosition=new THREE.Vector3(Infinity,0,0),sampleRotation=new THREE.Quaternion();
  const leaders=document.createElementNS('http://www.w3.org/2000/svg','svg');leaders.classList.add('label-leaders');leaders.setAttribute('aria-hidden','true');document.getElementById('mapLabels').prepend(leaders);
  const leaderMap=new WeakMap();
- let frames=0,visible=0,lastOcclusion=0,lastVisibility='';const blocked=new WeakMap();
+ let frames=0,visible=0,lastOcclusion=0,lastVisibility='',lastProjection=0,lastMotion=0;const blocked=new WeakMap();
  return {frame(){
+  const now=performance.now(),moving=samplePosition.distanceToSquared(camera.position)>.000001||sampleRotation.angleTo(camera.quaternion)>.00001;
+  samplePosition.copy(camera.position);sampleRotation.copy(camera.quaternion);if(moving)lastMotion=now;
+  // Static labels need no per-frame layout work; moving labels still track every frame.
+  if(!moving&&now-lastProjection<180)return;lastProjection=now;
   frames++;visible=0;const width=stage.clientWidth,height=stage.clientHeight,stageBox=stage.getBoundingClientRect();
+  const sizes=markers.map(({element})=>[element.offsetWidth||72,element.offsetHeight||26]);
   const boxes=[...stage.querySelectorAll('.rain-hud,.map-presentation-tools,.final-analytics,.view-toolbar,.bridge-directory')].filter(e=>e.getClientRects().length).map(e=>{const r=e.getBoundingClientRect();return{x:r.x-stageBox.x,y:r.y-stageBox.y,w:r.width,h:r.height}});
   const visibility=['showBuildings','showHeightBasis','hideAssumedHeight','showContext'].map(id=>document.getElementById(id)?.checked).join(':');
-  const occupied=[];const testOcclusion=visibility!==lastVisibility||performance.now()-lastOcclusion>350&&camera.position.distanceTo(lastCamera)>.6;
+  // Defer building raycasts until the camera settles, keeping drag frames responsive.
+  const occupied=[];const testOcclusion=visibility!==lastVisibility||!moving&&now-lastMotion>140&&now-lastOcclusion>350&&camera.position.distanceTo(lastCamera)>.6;
   const occluders=testOcclusion?getOccluders():[];
-  for(const marker of markers){
+  for(const [index,marker] of markers.entries()){
    const {element,position}=marker;p.copy(position).project(camera);
    let hidden=p.z< -1||p.z>1||Math.abs(p.x)>1||Math.abs(p.y)>1;
    if(testOcclusion&&!hidden){const direction=position.clone().sub(camera.position),distance=direction.length();ray.set(camera.position,direction.normalize());ray.far=Math.max(0,distance-3);blocked.set(element,ray.intersectObjects(occluders,true).length>0)}
    const bridgeOverview=element.dataset.labelKind==='bridge'&&['overview','top'].includes(stage.dataset.cameraMode);
    hidden=hidden||(!bridgeOverview&&blocked.get(element)===true);
-   const x=(p.x+1)*.5*width,y=(1-p.y)*.5*height,w=element.offsetWidth||72,h=element.offsetHeight||26;
+   const x=(p.x+1)*.5*width,y=(1-p.y)*.5*height,[w,h]=sizes[index];
    let chosen=null;
    if(!hidden)for(const dy of [-h-8,8,-h-36,36,-h-68,68,-h-104,104,-h-142,142]){
     const b={x:Math.max(8,Math.min(width-w-8,x-w/2)),y:y+dy,w,h};

@@ -9,7 +9,7 @@ body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hi
 .exhibition-layout .intro h1{font-size:23px}
 .exhibition-layout .view-toolbar{gap:6px}
 .exhibition-layout .view-buttons button{padding:8px 10px}
-.exhibition-layout .final-analytics{width:min(560px,calc(100% - 36px));background:rgba(250,253,253,.88);border-color:#d0dfe2;bottom:26px}
+.exhibition-layout .final-analytics{width:min(560px,calc(100% - 36px));background:rgba(250,253,253,.60);border-color:#c1d5d5;bottom:26px;pointer-events:auto;overscroll-behavior:contain;backdrop-filter:none}
 .exhibition-layout .final-map-basis{max-width:440px}
 .exhibition-layout .risk-key i{border-radius:50%;width:8px;height:8px}
 .rain-hud{position:absolute;z-index:4;left:20px;top:78px;width:300px;padding:13px 16px;background:#fcfefeef;border:1px solid #d8e4e5;border-radius:14px;box-shadow:0 5px 22px #143d4810;color:#294c55}
@@ -88,4 +88,11 @@ body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hi
 .exhibition-layout .map-presentation-tools{top:18px;right:20px;display:flex;flex-wrap:nowrap;gap:5px}
 .exhibition-layout .map-presentation-tools button{min-height:30px;padding:6px 9px;font-size:11px;white-space:nowrap;border-radius:6px;box-shadow:none}
 .exhibition-layout .compass{top:72px;right:22px}
+.exhibition-layout .final-analytics input[type=range]{touch-action:none}
+.final-analytics .analytics-heading b,.final-analytics #finalAnalysisTime,.final-analytics .rain-hud>label,.final-analytics .risk-key>span{background:rgba(252,254,254,.90);border-radius:4px;padding:2px 4px}
+.final-analytics .final-chart-grid article{background:rgba(252,254,254,.76);border:1px solid #dbe6e6;border-radius:7px;padding:6px}
+.final-analytics #finalMapBasis,.final-analytics #rainDemoStatus{display:table;background:rgba(252,254,254,.88);padding:2px 4px;border-radius:3px}
+#mapRouteSummary{display:table;margin:5px 0 0;background:#f9fdfded;padding:4px 7px;border:1px solid #c6ded6;border-radius:5px;font-size:11px;font-weight:650;color:#23695c;line-height:1.5}
+#mapRouteSummary:not([data-status=route]){color:#913d32;border-color:#e0bab2}
+.exhibition-layout .risk-green{background:#30916f}.exhibition-layout .risk-yellow{background:#dea923}.exhibition-layout .risk-red{background:#cf4c47}
 @media(max-width:850px){.exhibition-layout .map-presentation-tools{top:54px;right:12px;gap:4px}.exhibition-layout .map-presentation-tools button{padding:6px 8px;font-size:10px;min-height:29px}.exhibition-layout .final-analytics .rain-hud{padding-top:5px;margin-top:3px}.final-analytics .rain-hud output{font-size:19px}}

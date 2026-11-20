@@ -61,7 +61,15 @@ export function createExhibitionInterface(){
   $('pickRouteStart').setAttribute('aria-pressed',String(e.detail.active));$('pickRouteStart').textContent=e.detail.active?'위치 선택 취소':'지도에서 위치 선택';
   $('routePickHint').textContent=e.detail.message||'지도 산책로에서 출발점을 선택하세요.';
  });
- $('fitEvacRoute').addEventListener('click',event=>{if(event.isTrusted)document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'));window.cheonggyeV32Shell?.showMap();stage.scrollIntoView({behavior:'smooth',block:'start'})});
+ // Only an explicit route-view request scrolls the document. Calculation never does.
+ $('fitEvacRoute').addEventListener('click',event=>{if(!event.isTrusted)return;document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'));window.cheonggyeV32Shell?.showMap();stage.scrollIntoView({behavior:document.body.classList.contains('reduce-motion')?'instant':'smooth',block:'start'})});
+ const analysisPanel=document.querySelector('.final-analytics');
+ for(const type of ['pointerdown','keydown'])analysisPanel.addEventListener(type,event=>{
+  if(!event.target.closest('input,select,textarea'))return;
+  if(type==='keydown'&&!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].includes(event.key))return;
+  document.dispatchEvent(new CustomEvent('cheonggye:analysisinput'));event.stopPropagation();
+ });
+ const mapRoute=document.createElement('p');mapRoute.id='mapRouteSummary';mapRoute.setAttribute('role','status');mapRoute.setAttribute('aria-live','polite');$('finalMapBasis').after(mapRoute);
  $('openRouteSources').addEventListener('click',()=>$('sourcesDialog').showModal());
  work.querySelectorAll('[data-calculator-tab]').forEach(button=>button.addEventListener('click',()=>{
   const selected=button.dataset.calculatorTab;
@@ -70,6 +78,8 @@ export function createExhibitionInterface(){
  }));
  document.addEventListener('cheonggye:analysis',event=>{
   const d=event.detail,r=d.route;
+  mapRoute.textContent=r.status==='route'?`${r.exit.name} · ${Math.round(r.lengthM)}m${Number.isFinite(r.arrivalSeconds)?' · 도착 '+r.arrivalSeconds+'초':''}`:'경로 없음 · '+(r.reason||'계산 조건을 확인하세요.');
+  mapRoute.dataset.status=r.status;
   $('workbenchBasis').textContent=$('finalBasis').textContent;
   $('routeDecision').textContent=r.status==='route'?'현재 설정에서 계산된 경로 · 실제 현장 안전 미검증':r.reason||'경로를 계산할 입력을 확인하세요.';
   const list=$('routeFacilitySummary');list.replaceChildren();
