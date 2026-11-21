@@ -12,7 +12,7 @@ export function createMarkerProjector({stage,camera,markers,getOccluders=()=>[]}
   if(!moving&&now-lastProjection<180)return;lastProjection=now;
   frames++;visible=0;const width=stage.clientWidth,height=stage.clientHeight,stageBox=stage.getBoundingClientRect();
   const sizes=markers.map(({element})=>[element.offsetWidth||72,element.offsetHeight||26]);
-  const boxes=[...stage.querySelectorAll('.rain-hud,.map-presentation-tools,.final-analytics,.view-toolbar,.bridge-directory')].filter(e=>e.getClientRects().length).map(e=>{const r=e.getBoundingClientRect();return{x:r.x-stageBox.x,y:r.y-stageBox.y,w:r.width,h:r.height}});
+  const boxes=[...stage.querySelectorAll('.rain-hud,.map-presentation-tools,.final-analytics,.view-toolbar,.bridge-directory,.evac-map-label:not([hidden])')].filter(e=>e.getClientRects().length).map(e=>{const r=e.getBoundingClientRect();return{x:r.x-stageBox.x,y:r.y-stageBox.y,w:r.width,h:r.height}});
   const visibility=['showBuildings','showHeightBasis','hideAssumedHeight','showContext'].map(id=>document.getElementById(id)?.checked).join(':');
   // Defer building raycasts until the camera settles, keeping drag frames responsive.
   const occupied=[];const testOcclusion=visibility!==lastVisibility||!moving&&now-lastMotion>140&&now-lastOcclusion>350&&camera.position.distanceTo(lastCamera)>.6;

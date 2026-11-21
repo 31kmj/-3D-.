@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {displayRiskColor} from './display-palette-final.js?rev=interaction-20261120';
+import {displayRiskColor} from './display-palette-final.js?rev=submission2-20261121';
 import {AREA_APPLICATION,buildInundationArea,evaluateInundationArea,sampleInundationArea,summarizeAreaTimeline} from './inundation-area-v32.js';
 const NS='http://www.w3.org/2000/svg',fmt=n=>Number.isFinite(n)?Math.round(n).toLocaleString('ko-KR'):'미확인',m=n=>Number.isFinite(n)?n.toFixed(3)+'m':'미확인',clock=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
 export function createInundationAreaUI({data,graph,scene,onFocus=()=>{},onChange=()=>{},onMapTime=()=>{}}){
