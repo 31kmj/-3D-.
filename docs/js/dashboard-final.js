@@ -1,8 +1,8 @@
 // Presentation dashboard: reads the same computed state as the 3D flood map.
 // No independent hazard thresholds or fabricated chart data.
-import {connectRainfallRouting} from './rainfall-routing-control.js?rev=interaction-20261120';
+import {connectRainfallRouting} from './rainfall-routing-control.js?rev=submission-20261121';
 import {presentationSnapshot} from './presentation-analysis.js';
-import {createExhibitionInterface} from './exhibition-interface-final.js?rev=interaction-20261120';
+import {createExhibitionInterface} from './exhibition-interface-final.js?rev=submission-20261121';
 const $=id=>document.getElementById(id);
 const number=(value,digits=0)=>Number.isFinite(value)?value.toLocaleString('ko-KR',{maximumFractionDigits:digits}):'—';
 const svgNS='http://www.w3.org/2000/svg';

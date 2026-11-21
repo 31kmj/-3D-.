@@ -1,15 +1,16 @@
 import {buildLandmark,landmarkContracts,landmarkPresets} from './landmarks-v23.js';
-import {createMarkerProjector} from './labels-final.js?rev=interaction-20261120';
-import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=interaction-20261120';
+import {fitOverviewCamera} from './presentation-camera-final.js?rev=submission-20261121';
+import {createMarkerProjector} from './labels-final.js?rev=submission-20261121';
+import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=submission-20261121';
 import {createFrameProfiler} from './performance-v22.js';
-import {createPresentationLook} from './presentation-look.js?rev=interaction-20261120';
-import {createFloodUI} from './flood-ui-final.js?rev=interaction-20261120';
+import {createPresentationLook} from './presentation-look.js?rev=submission-20261121';
+import {createFloodUI} from './flood-ui-final.js?rev=submission-20261121';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
 import {createPlaceSelection} from './selection-v23.js';
 import {batchEquivalentMeshes,sceneMeshMetrics} from './batching-v14.js';
 import {createLightingLab as createLegacyLighting} from './lighting-v14.js';
-import {createLightingLab as createNewLighting} from './lighting-final.js?rev=interaction-20261120';
+import {createLightingLab as createNewLighting} from './lighting-final.js?rev=submission-20261121';
 import {createGraphics} from './graphics-v21.js';
 import {createBankSurfaces,buildPavingBands} from './bank-surfaces-v28.js';
 import {createPhotoWater} from './water-detail-v28.js';
@@ -40,11 +41,11 @@ const $ = id => document.getElementById(id);
 const shell=window.cheonggyeV32Shell||createInterface();
 const labels = [['가상 수위 낮음','시연 0.8m'],['가상 수위 중간','시연 1.8m'],['가상 수위 높음','시연 2.6m']];
 let bridgeCameraBasis=null;
-let curr=0, evening=false, frame=0, lastTime=performance.now(), movingTo=null,currentView='overview';
+let curr=0, evening=false, frame=0, lastTime=performance.now(), movingTo=null,currentView='overview',manualCamera=false;
 
 function makeGraphicPresets(data){
   const at=(points,fraction)=>{const distances=[0];for(let i=1;i<points.length;i++)distances.push(distances.at(-1)+Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]));const wanted=distances.at(-1)*fraction;let i=1;while(i<distances.length-1&&distances[i]<wanted)i++;const t=(wanted-distances[i-1])/(distances[i]-distances[i-1]||1),a=points[i-1],b=points[i];return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]};
-  const views={overview:{position:[155,1150,620],target:[15,-1,20],fov:42}};
+  const views={overview:{position:[-460,650,950],target:[15,-1,20],fov:42}};
   for(const [side,fraction] of [['west',.18],['east',.76]]){const walkLine=data.walks[0].points[0][0]>data.walks[0].points.at(-1)[0]?data.walks[0].points.slice().reverse():data.walks[0].points,walk=at(walkLine,fraction),water=at(data.centerline,fraction);views['walk-'+side]={position:[walk[0],-1.25,walk[1]],target:[walk[0]+18,-2.1,walk[1]+4.5],fov:42};views['water-'+side]={position:[water[0]-7,-2.25,water[1]+3],target:[water[0]+13,-4.05,water[1]-1],fov:42}}
   for(const [key,name] of [['mojeon','모전교'],['gwang','광교'],['jangtong','장통교'],['samil','삼일교']]){const b=data.bridges.find(b=>b.name===name),p=b.center;views[key+'-close']={position:[p[0]-b.official_width_m/2-23,2.0,p[1]+8],target:[p[0],-.65,p[1]],fov:42,bridge:name}}
   const gwang=data.bridges.find(b=>b.name==='광교');
@@ -125,11 +126,12 @@ try {
   ctl.maxPolarAngle=1.52;ctl.screenSpacePanning=true;
   ctl.listenToKeyEvents(renderer.domElement);
   renderer.domElement.addEventListener('keydown',event=>{
-    if(!['+','=','-','_'].includes(event.key))return;event.preventDefault();movingTo=null;
+    if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){movingTo=null;manualCamera=true;return}
+    if(!['+','=','-','_'].includes(event.key))return;event.preventDefault();movingTo=null;manualCamera=true;
     const offset=camera.position.clone().sub(ctl.target),factor=['+','='].includes(event.key)?.82:1.22;
     offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,ctl.minDistance,ctl.maxDistance));camera.position.copy(ctl.target).add(offset);ctl.update();
   });
-  ctl.addEventListener('start',()=>{movingTo=null});
+  ctl.addEventListener('start',()=>{movingTo=null;manualCamera=true});
   document.addEventListener('cheonggye:analysisinput',()=>{movingTo=null;document.dispatchEvent(new CustomEvent('cheonggye:manualcamera'))});
   const hemi = new THREE.HemisphereLight('#edf3f5','#777468',1.25);scene.add(hemi);
   const sun = new THREE.DirectionalLight('#fff1ce',2.5);
@@ -361,6 +363,10 @@ try {
   const graphicPresets=makeGraphicPresets(data);
   function graphicPresetCamera(name){
     const preset=graphicPresets[name],position=new THREE.Vector3(...preset.position),target=new THREE.Vector3(...preset.target);
+    if(name==='overview'){
+      const fitted=fitOverviewCamera({data,coreCorners:context.metadata.core_corners,width:stage.clientWidth,height:stage.clientHeight,fov:camera.fov,uiHidden:document.body.classList.contains('map-only')});
+      ctl.maxDistance=Math.max(3800,fitted.diagnostics.distance*1.08);stage.dataset.overviewCameraFit=JSON.stringify(fitted.diagnostics);return fitted;
+    }
     if(name.startsWith('surface-'))return {position,target}; // Keep corridor eye point: aspect scaling can back into a bridge or wall.
     if(preset.field){const scale=Math.max(1,.9/(stage.clientWidth/stage.clientHeight));position.sub(target).multiplyScalar(scale).add(target);return {position,target}}
     if(!preset.landmark||!name.endsWith('building'))return {position,target};
@@ -381,7 +387,7 @@ try {
     if(currentView==='stoneDetail'&&name!=='stoneDetail')$('mapModeLabel').textContent={hazard:'문헌 위험 기준 계산 · 청계천 적용 미검증',flood:'강우 변화와 이동시간 · 근사 시제품',explore:'도시 맥락 · 가정 지형',water:'가상 수위 비교 · 실측 침수 아님',evidence:'자료 근거 · 현장 검증 전',rain:'과거 강우 관측 · 침수위험 산정 보류'}[shell.panel]||'도시 맥락 · 가정 지형';
     if(name==='walk'&&!walkPreset.available){window.cheonggyeV32Load?.notice(walkPreset.reason+' 현재 시점을 유지합니다.');return}
     // Walk is an illustrative camera preset, not terrain-following navigation.
-    currentView=name;ctl.maxPolarAngle=['field-gwang-under','field-warning7'].includes(name)?Math.PI-.1:name==='walk'?Math.PI/2:1.52;
+    currentView=name;manualCamera=false;ctl.maxPolarAngle=['field-gwang-under','field-warning7'].includes(name)?Math.PI-.1:name==='walk'?Math.PI/2:1.52;
     $('walkNotice').hidden=name!=='walk';$('bridgeCameraNotice').hidden=name!=='bridgeChannel';stage.dataset.cameraMode=name;
     stage.dataset.maxPolarAngle=String(ctl.maxPolarAngle);
     let t=target||new THREE.Vector3(15,-1,20),p;
@@ -400,7 +406,7 @@ try {
     // A lower, diagonal overview reveals bridge/river-wall depth without changing the map geometry.
     else {const scale=Math.max(1,1.15/camera.aspect);p=new THREE.Vector3(-420*scale,650*scale,1000*scale)}
     post.shadow(t,name==='overview'||name==='top');
-    if(shell.reducedMotion){camera.position.copy(p);ctl.target.copy(t);ctl.update();movingTo=null}else movingTo={position:p,target:t};
+    if(shell.reducedMotion){camera.position.copy(p);ctl.target.copy(t);ctl.update();movingTo=null}else movingTo={position:p,target:t,fromPosition:camera.position.clone(),fromTarget:ctl.target.clone(),started:performance.now(),duration:680};
     document.querySelectorAll('.view-buttons button').forEach(b=>b.classList.toggle('active',b.id===({walk:'viewWalk',top:'viewTop',overview:'viewOverview',detail:'viewDetail',compare:'viewCompare',stoneDetail:'viewStoneDetail'}[name])));
   }
   $('viewDistrict').addEventListener('click',()=>setView('district'));
@@ -415,7 +421,12 @@ try {
   $('quality').addEventListener('click',()=>{post.setQuality(!post.high);$('quality').textContent=post.high?'품질: 높음':'품질: 가벼움';$('quality').setAttribute('aria-pressed',String(post.high));resize()});
   $('viewOverview').addEventListener('click',()=>setView('overview'));
   $('viewTop').addEventListener('click',()=>setView('top'));
-  $('viewWalk').addEventListener('click',()=>setView('walk'));
+  $('viewWalk').addEventListener('click',()=>{
+    // A manual walking view prioritises the channel; the scripted tour keeps its charts.
+    if($('togglePanel').getAttribute('aria-expanded')==='true')$('togglePanel').click();
+    if($('toggleAnalytics').getAttribute('aria-expanded')==='true')$('toggleAnalytics').click();
+    setView('walk');
+  });
   $('comparePlaza').addEventListener('click',()=>setView('focus',new THREE.Vector3(-420,0,-45)));
   $('compareGwangtong').addEventListener('click',()=>selectBridgeByName('광통교','comparison'));
   $('compareSamil').addEventListener('click',()=>selectBridgeByName('삼일교','comparison'));
@@ -461,7 +472,14 @@ try {
     corrected.add(material);material.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\nfloat v6Luma=dot(diffuseColor.rgb,vec3(0.2126,0.7152,0.0722));\ndiffuseColor.rgb=mix(vec3(v6Luma),diffuseColor.rgb,0.28)*1.15;')};
     material.customProgramCacheKey=()=> 'v7-neutral-architectural-map';material.needsUpdate=true;
   }});
-  function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();post.resize(w,h)}
+  let overviewViewport='';
+  function resize(){
+    const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
+    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();post.resize(w,h);
+    const layoutKey=w+':'+h+':'+document.body.classList.contains('map-only');
+    if(layoutKey!==overviewViewport&&currentView==='overview'&&!manualCamera){const fitted=graphicPresetCamera('overview');camera.position.copy(fitted.position);ctl.target.copy(fitted.target);movingTo=null;ctl.update();post.shadow(ctl.target,true)}
+    overviewViewport=layoutKey;
+  }
   new ResizeObserver(resize).observe(stage);resize();
   // Batch static surfaces by material and vertex layout. Buildings stay individually
   // selectable; risk segments stay separate because scenarios change their materials.
@@ -498,8 +516,8 @@ try {
   stage.dataset.selectableBefore=String(selectableBefore);stage.dataset.selectableAfter=String(buildingMeshes.length);
   stage.dataset.staticBatchGeometryEquivalent=String(staticBatches.every(batch=>batch.applied&&batch.geometryEquivalent));
   stage.dataset.cameraMode='overview';stage.dataset.maxPolarAngle=String(ctl.maxPolarAngle);
-  const initialScale=Math.max(1,1.15/camera.aspect);
-  camera.position.set(-420*initialScale,650*initialScale,1000*initialScale);ctl.target.set(15,-1,20);post.shadow(ctl.target,true);ctl.update();update(0);
+  const initialView=graphicPresetCamera('overview');
+  camera.position.copy(initialView.position);ctl.target.copy(initialView.target);post.shadow(ctl.target,true);ctl.update();update(0);
   for(const id of ['showRisk','showRoute']){ $(id).checked=false;$(id).disabled=true }
   groups.risk.visible=false;groups.routes.visible=false;
   shell.activatePanel('flood');
@@ -664,7 +682,7 @@ try {
   const diagnostics=document.createElement('output');diagnostics.id='renderDiagnostics';diagnostics.hidden=true;stage.append(diagnostics);
 
   const benchmark=createBenchmark({button:$('benchmark'),output:$('benchmarkResult'),camera,controls:ctl,setTourView(){movingTo=null;post.shadow(new THREE.Vector3(-150,0,-23));},getState:()=>({quality:post.high?'high':'light',viewport:[stage.clientWidth,stage.clientHeight],pixelRatio:renderer.getPixelRatio(),version:31,displayVersion:'발표 마감본',legacyVersionOrdinal:32,legacyDisplayVersion:'발표 마감본',buildRevision:'final-render-20261117',versionNamespace:'final',scenario:curr,evening})});
-  const backgroundDay=new THREE.Color('#dce9eb'),backgroundEvening=new THREE.Color('#82949f'),sunDay=new THREE.Color('#fff1db'),sunEvening=new THREE.Color('#ffca96');
+  const backgroundDay=new THREE.Color('#e7eeeb'),backgroundEvening=new THREE.Color('#8598a3'),sunDay=new THREE.Color('#fff1db'),sunEvening=new THREE.Color('#ffca96');
   let animationTime=performance.now(),waterClock=0;
   const plane=new THREE.Plane(new THREE.Vector3(0,1,0),0),scaleRay=new THREE.Raycaster();
   function updateScale(){
@@ -679,14 +697,14 @@ try {
     if(contextLost)return;
     try{
     profiler.begin(now);
-    const delta=Math.min(100,Math.max(0,now-animationTime));const ease=shell.reducedMotion?1:1-Math.exp(-delta/190);animationTime=now;
+    const delta=Math.min(100,Math.max(0,now-animationTime));animationTime=now;
     water.position.y=THREE.MathUtils.lerp(water.position.y,targetWater,shell.reducedMotion?1:1-Math.exp(-delta/270));
     if(Math.abs(water.position.y-targetWater)<.002)water.position.y=targetWater;waterEdge.position.y=water.position.y+.03;stage.dataset.waterY=String(water.position.y);
     if(!shell.reducedMotion)waterClock+=delta;
     const lightEase=shell.reducedMotion?1:1-Math.exp(-delta/280);scene.background.lerp(evening?backgroundEvening:backgroundDay,lightEase);scene.fog.color.copy(scene.background);
     profiler.mark('water-background');lighting.frame(now);profiler.mark('lighting');
     updateDepthPrecision();ctl.enableDamping=!shell.reducedMotion;ctl.dampingFactor=1-Math.exp(-delta/150);
-    if(movingTo){camera.position.lerp(movingTo.position,ease);ctl.target.lerp(movingTo.target,ease);if(camera.position.distanceTo(movingTo.position)<.08){camera.position.copy(movingTo.position);ctl.target.copy(movingTo.target);movingTo=null}}
+    if(movingTo){const t=shell.reducedMotion?1:THREE.MathUtils.clamp((now-movingTo.started)/movingTo.duration,0,1),ease=t*t*(3-2*t);camera.position.lerpVectors(movingTo.fromPosition,movingTo.position,ease);ctl.target.lerpVectors(movingTo.fromTarget,movingTo.target,ease);if(t>=1){camera.position.copy(movingTo.position);ctl.target.copy(movingTo.target);movingTo=null}}
     exhibitionScene.frame();ctl.update(delta/1000);profiler.mark('controls');flood.frame(camera);profiler.mark('flood');benchmark.frame(now);profiler.mark('benchmark');if(photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});visual.tick(waterClock,evening);if(!photoWater&&profiler.ablation!=='graphics-sync')graphics?.sync({y:water.position.y,evening,quality:post.high?'high':'light',reducedMotion:shell.reducedMotion,landscape:groups.landscape.visible});profiler.mark('graphics');if(profiler.enabled)profiler.render(()=>post.render());else post.render();profiler.mark('post-render');
     if(firstFrame){
       firstFrame=false;stage.dataset.firstRenderMs=performance.now().toFixed(1);

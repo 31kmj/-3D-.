@@ -4,13 +4,13 @@ import * as THREE from 'three';
 export function createLightingLab({scene,camera,controls,renderer,post,sun,hemi,onReset}){
   const $=id=>document.getElementById(id);
   // Neutral daylight and a higher sun keep pale stone readable and shorten coarse overview shadows.
-  const presets={morning:{direction:[220,330,140],sun:'#ffebce',ambient:'#cbdef3'},noon:{direction:[0,430,150],sun:'#fff3df',ambient:'#d7e5f5'},afternoon:{direction:[-260,390,210],sun:'#ffe1b8',ambient:'#c3d9f2'}};
+  const presets={morning:{direction:[220,350,140],sun:'#fff0da',ambient:'#d9e6ec'},noon:{direction:[0,430,150],sun:'#fff5e6',ambient:'#e0ebef'},afternoon:{direction:[-260,390,210],sun:'#ffe9cc',ambient:'#d3e1e9'}};
   let evening=false,lastFollow=0,contrast=1,exposure=.86,shade=true;
   function apply(){
     const preset=presets[$('sunDirection').value];contrast=Number($('lightContrast').value);exposure=Number($('exposure').value);shade=$('showShadows').checked;
     const direction=new THREE.Vector3(...preset.direction);if(evening)direction.y*=.38;
-    sun.color.set(evening?'#ffe0bb':preset.sun);sun.intensity=(evening?1.85:2.15)*contrast;
-    hemi.color.set(evening?'#a6bedc':preset.ambient);hemi.groundColor.set(evening?'#505e69':'#6f818f');
+    sun.color.set(evening?'#ffe4c7':preset.sun);sun.intensity=(evening?1.65:2.0)*contrast;
+    hemi.color.set(evening?'#b2c8dc':preset.ambient);hemi.groundColor.set(evening?'#58636d':'#8b908a');
     // Basic/light mode has no HDR environment; replace that missing diffuse fill.
     hemi.intensity=((evening?1.1:1.4)+(scene.environment?0:1.0))/contrast;
     // Artistic presets coordinate the background, diffuse fill and environment
