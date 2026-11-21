@@ -10,6 +10,11 @@ body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hi
 .exhibition-layout .view-toolbar{gap:6px}
 .exhibition-layout .view-buttons button{padding:8px 10px}
 .exhibition-layout .final-analytics{width:min(560px,calc(100% - 36px));background:rgba(250,253,253,.60);border-color:#c4d7d2;border-radius:14px;bottom:26px;pointer-events:auto;overscroll-behavior:contain;backdrop-filter:none;box-shadow:0 10px 34px #173d4012;color:#214b54}
+@media(min-width:851px){.exhibition-layout .final-analytics.charts-collapsed{width:min(416px,calc(100% - 36px))}}
+.final-analytics .risk-key{flex-wrap:wrap;row-gap:5px}
+.final-analytics .risk-key>span{white-space:nowrap}
+.final-analytics .risk-key small{max-width:100%;overflow-wrap:anywhere}
+.final-analytics.charts-collapsed .risk-key small{flex-basis:100%;margin-left:0}
 .exhibition-layout .final-map-basis{max-width:440px}
 .exhibition-layout .risk-key i{border-radius:50%;width:8px;height:8px}
 .rain-hud{position:absolute;z-index:4;left:20px;top:78px;width:300px;padding:13px 16px;background:#fcfefeef;border:1px solid #d8e4e5;border-radius:14px;box-shadow:0 5px 22px #143d4810;color:#294c55}
@@ -98,6 +103,7 @@ body.exhibition-layout{display:block;height:auto;min-height:100dvh;overflow-x:hi
 .final-analytics .final-chart-grid strong{background:none;border:0;padding:0;margin:3px 0 6px;font-size:22px;font-weight:700;color:#193e47}
 .final-analytics .final-chart-grid h3{font-weight:600;color:#4b6871;line-height:1.4}
 .final-analytics #finalMapBasis,.final-analytics #rainDemoStatus{display:block;background:none;padding:0;border-radius:0;min-height:1.5em;color:#3e626a;line-height:1.5}
+#stage[data-demo-playing=false] .final-analytics #rainDemoStatus{display:none}
 #mapRouteSummary{display:block;height:39px;box-sizing:border-box;margin:6px 0 0;background:#f9fdfde8;padding:5px 9px;border:1px solid #ccded7;border-left:3px solid #2c8a76;border-radius:7px;font-size:11px;font-weight:650;color:#23695c;line-height:1.4;overflow:auto}
 #mapRouteSummary:not([data-status=route]){color:#913d32;border-color:#e0bab2}
 .exhibition-layout .risk-green{background:#30916f}.exhibition-layout .risk-yellow{background:#dea923}.exhibition-layout .risk-red{background:#cf4c47}

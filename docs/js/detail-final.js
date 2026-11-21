@@ -115,6 +115,26 @@ export function createPostProcessing(renderer,scene,camera,sun){
   sky.material.uniforms.turbidity.value=2;sky.material.uniforms.rayleigh.value=1.5;
   sky.material.uniforms.mieCoefficient.value=.004;sky.material.uniforms.mieDirectionalG.value=.8;
   const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
+  // The composer renders into half-float targets, so canvas antialiasing alone
+  // cannot smooth railings and roofs. Match the color/depth format sample counts
+  // instead of assuming the device-wide MAX_SAMPLES works for half-float color.
+  const highSamples=(()=>{
+    try{
+      const gl=renderer.getContext(),max=renderer.capabilities.maxSamples;
+      const color=Array.from(gl.getInternalformatParameter(gl.RENDERBUFFER,gl.RGBA16F,gl.SAMPLES)||[]);
+      const depth=Array.from(gl.getInternalformatParameter(gl.RENDERBUFFER,gl.DEPTH_COMPONENT24,gl.SAMPLES)||[]);
+      return [4,2].find(n=>n<=max&&color.includes(n)&&depth.includes(n))||0;
+    }catch{return 0}
+  })();
+  function setSamples(samples){
+    for(const target of [composer.renderTarget1,composer.renderTarget2]){
+      if(target.samples===samples)continue;
+      // Releasing these targets also releases their old multisample buffers.
+      // Keep their identities: the composer retains read/write buffer references.
+      target.dispose();target.samples=samples;
+    }
+  }
+  setSamples(highSamples);
   // Existing coarse SSAO darkened the entire low-level channel outline. The new
   // world-scale material and tracked PCF shadows retain contact without this halo.
   const ao=new SSAOPass(scene,camera,512,512,12);ao.enabled=false;composer.addPass(ao);
@@ -139,8 +159,8 @@ export function createPostProcessing(renderer,scene,camera,sun){
   const api={
     get high(){return high},
     invalidateShadow(){refresh()},
-    get shadowState(){return {active:renderer.shadowMap.enabled&&sun.castShadow,span,resolution:high?highResolution:1024,center:center.toArray(),direction:direction.toArray(),updates,ambientOcclusion:ao.enabled}},
-    setQuality(value){high=value;ao.enabled=false;renderer.setPixelRatio(Math.min(devicePixelRatio,value?1.5:1));const size=value?highResolution:1024;if(sun.shadow.mapSize.x!==size){sun.shadow.mapSize.set(size,size);sun.shadow.map?.dispose();sun.shadow.map=null}refresh()},
+    get shadowState(){return {active:renderer.shadowMap.enabled&&sun.castShadow,span,resolution:high?highResolution:1024,center:center.toArray(),direction:direction.toArray(),updates,ambientOcclusion:ao.enabled,kernelRadius:ao.kernelRadius,msaaSamples:composer.renderTarget1.samples}},
+    setQuality(value){high=!!value;setSamples(high?highSamples:0);ao.enabled=false;renderer.setPixelRatio(Math.min(devicePixelRatio,high?1.5:1));const size=high?highResolution:1024;if(sun.shadow.mapSize.x!==size){sun.shadow.mapSize.set(size,size);sun.shadow.map?.dispose();sun.shadow.map=null}refresh()},
     setShadows(value){wanted=!!value;refresh()},
     direction(value){direction.copy(value);refresh()},
     resize(w,h){composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(w,h);ao.setSize(Math.max(1,Math.ceil(w*renderer.getPixelRatio()*.5)),Math.max(1,Math.ceil(h*renderer.getPixelRatio()*.5)));fxaa.material.uniforms.resolution.value.set(1/(w*renderer.getPixelRatio()),1/(h*renderer.getPixelRatio()))},

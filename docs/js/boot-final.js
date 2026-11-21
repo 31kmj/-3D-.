@@ -31,6 +31,6 @@ try{
  if(diagnostic==='module-error')throw Error('검증용: 3D 모듈을 읽지 못한 상황입니다.');
  if(diagnostic==='slow')await new Promise(resolve=>setTimeout(resolve,15000));
  const dashboard=await import('./dashboard-final.js?rev=submission2-20261121');dashboard.createDashboard();
- await import('./viewer-final.js?rev=submission2-20261121');
+ await import('./viewer-final.js?rev=ultra-20261121');
 }catch(error){console.error('청계천 발표 마감본 시작 실패',error);setError('지도를 시작하지 못했습니다',error.message||'필요한 파일을 읽지 못했습니다.')}
 })();

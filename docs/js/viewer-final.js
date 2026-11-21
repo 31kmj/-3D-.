@@ -19,7 +19,7 @@ import {buildEvidenceBridge as buildFieldBridge} from './bridges-v26.js';
 import {buildFieldDetails as buildLegacyField,applyStairOpeningMasks as applyLegacyOpeningMasks} from './field-details-v26.js';
 import {buildFieldDetails,applyStairOpeningMasks} from './field-details-v27.js';
 import {buildExitFixtures} from './exit-fixtures-v27.js';
-import {createPostProcessing as createNewPost} from './detail-final.js';
+import {createPostProcessing as createNewPost} from './detail-final.js?rev=ultra-20261121';
 import {initRainfallUI} from './hydrology-v14.js';
 // Version 2 is an evolution of Version 1: the scenario/visibility/OrbitControls
 // interactions remain; procedural city boxes are replaced by attributed OSM geometry.
