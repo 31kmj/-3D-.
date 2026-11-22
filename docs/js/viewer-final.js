@@ -4,7 +4,7 @@ import {createMarkerProjector} from './labels-final.js?rev=submission2-20261121'
 import {chooseOpenWalk,connectExhibitionScene} from './exhibition-scene-final.js?rev=submission2-20261121';
 import {createFrameProfiler} from './performance-v22.js';
 import {createPresentationLook} from './presentation-look.js?rev=submission2-20261121';
-import {createFloodUI} from './flood-ui-final.js?rev=submission2-20261121';
+import {createFloodUI} from './flood-ui-final.js?rev=route-visible-20261122';
 import {bridgeCameraCandidates} from './bridge-camera-v14.js';
 import {buildLocalNameIndex,createLocalNameSearch} from './search-v14.js';
 import {createPlaceSelection} from './selection-v23.js';

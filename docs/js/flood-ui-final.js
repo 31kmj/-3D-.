@@ -1,8 +1,9 @@
 import * as THREE from 'three';
+import {createRouteGuidance} from './route-guidance-final.js?rev=route-visible-20261122';
 import {HISTORY_APPLICATION,validateRainfallHistory,calculateHistoricalRainfall} from './rainfall-history-v32.js';
 import {BOUNDARY_APPLICATION,resolveBoundaryContext} from './boundary-rainfall-v32.js';
-import {createInundationAreaUI} from './inundation-area-ui-final.js?rev=interaction-20261120';
-import {displayRiskColor} from './display-palette-final.js?rev=interaction-20261120';
+import {createInundationAreaUI} from './inundation-area-ui-final.js?rev=submission2-20261121';
+import {displayRiskColor} from './display-palette-final.js?rev=submission2-20261121';
 import {buildFloodGraph,edgeHazard,validateFloodResult,findEvacuationRoute} from './flood-engine-v15.js';
 import {STUDY_PROFILES,temporalStateAt,findTemporalEvacuationRoute,validateScopeContract} from './temporal-evac-v19.js';
 import {RAIN_MODEL,calculateRainfallFlood,unknownRainResult,rainfallHazard,findRainfallRoute} from './rainfall-prototype-v32.js';
@@ -23,6 +24,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  const areaUI=createInundationAreaUI({data,graph,scene,onFocus:point=>{onFocus(point);shell.showMap()},onChange:()=>recompute(),onMapTime:seconds=>{if(!isRainTime())return;$('rainTimeView').value=String(seconds);recompute()}});
  const facilityInventory=buildFacilityInventory(data,graph);let facilityContext=resolveFacilityContext(facilityInventory),facilityStates=[];
  const overlay=new THREE.Group(),routeLayer=new THREE.Group();scene.add(overlay,routeLayer);
+ const routeGuidance=createRouteGuidance($('stage'));
  const buffers=buildOverlayBuffers(graph),geometry=new THREE.BufferGeometry(),colors=new Float32Array(buffers.positions.length);geometry.setAttribute('position',new THREE.BufferAttribute(buffers.positions,3));geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));geometry.setIndex(new THREE.BufferAttribute(buffers.indices,1));geometry.computeBoundingSphere();
  const overlayMaterial=new THREE.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:.18,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-3,depthWrite:false}),overlayMesh=new THREE.Mesh(geometry,overlayMaterial);overlayMesh.renderOrder=3;overlay.add(overlayMesh);
  $('stage').dataset.riskLineOpacity=String(overlayMaterial.opacity);
@@ -162,7 +164,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  if(graph.starts[2])$('evacStart').value=graph.starts[2].id;
  for(const exit of graph.exits){const label=document.createElement('label');label.className='exit-toggle';const input=document.createElement('input');input.type='checkbox';input.value=exit.id;input.setAttribute('aria-label',exit.name+' 대피방향 합성 차단');input.addEventListener('change',recompute);const span=document.createElement('span');span.textContent=exit.name+' · '+(exit.bank==='north'?'북안':'남안');label.append(input,span);$('exitClosures').append(label)}
  const diagnostic=document.createElement('output');diagnostic.id='floodDiagnostics';diagnostic.hidden=true;$('stage').append(diagnostic);
- function clearRoute(){for(const mesh of [routeMesh,routeOutline])if(mesh){routeLayer.remove(mesh);mesh.geometry.dispose()}routeMesh=null;routeOutline=null;routePoints=[];fitBounds=null;arrivalMarker.visible=false;arrivalLabel.hidden=true;routeArrows.count=0;$('stage').dataset.routeArrowCount='0'}
+ function clearRoute(){routeGuidance.setRoute([]);for(const mesh of [routeMesh,routeOutline])if(mesh){routeLayer.remove(mesh);mesh.geometry.dispose()}routeMesh=null;routeOutline=null;routePoints=[];fitBounds=null;arrivalMarker.visible=false;arrivalLabel.hidden=true;routeArrows.count=0;$('stage').dataset.routeArrowCount='0'}
  function drawRoute(){
   clearRoute();const start=nodeMap.get($('evacStart').value);if(start)startMarker.position.set(start.point[0],-.75,start.point[1]);
   if(route.status!=='route'||route.path.length<2)return;
@@ -172,6 +174,7 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
   }
   const curve=new THREE.CurvePath();for(let i=1;i<points.length;i++)if(points[i].distanceTo(points[i-1])>.001)curve.add(new THREE.LineCurve3(points[i-1],points[i]));if(!curve.curves.length)return;
   routePoints=points.map(p=>p.toArray());fitBounds=routeFitBounds([...routePoints,startMarker.position.toArray(),route.path.at(-1).point.length===2?[route.path.at(-1).point[0],route.path.at(-1).elevation+2,route.path.at(-1).point[1]]:routePoints.at(-1)]);
+  routeGuidance.setRoute(routePoints);
   const end=route.path.at(-1);arrivalMarker.position.set(end.point[0],end.elevation+2,end.point[1]);arrivalMarker.visible=true;
   function ribbonGeometry(halfWidth,lift){
    const vertices=[],indices=[];
@@ -244,14 +247,14 @@ export function createFloodUI({data,fixtures,temporalFixtures,evacuationScope,sc
  $('fitEvacRoute').addEventListener('click',()=>{if(fitBounds){shell.showMap();onFitRoute(fitBounds)}});
  $('resetExitClosures').addEventListener('click',()=>{$('exitClosures').querySelectorAll('input').forEach(el=>el.checked=false);recompute()});
  $('showFloodOverlay').addEventListener('change',()=>syncVisible());
- function syncVisible(){const visible=shell.panel==='flood';areaUI.setVisible(visible);overlay.visible=visible&&$('showFloodOverlay').checked;routeLayer.visible=visible;document.querySelector('.flood-inset-key').hidden=!visible;if(!visible)$('stage').classList.remove('route-fit-mode');if(visible){onReturnToFlood?.();$('waterChip').textContent=isRainfall()?(rainResult.valid?'강우 → 근사 침수 · 시제품':'강우 미확인 · 위험도 미산정'):'합성 침수 실험 · 강우 연계 전';$('routeText').textContent=routeFooter()}else $('routeText').textContent='침수 색상·조건부 경로는 침수·대피 탭에서 표시합니다.'}
+ function syncVisible(){const visible=shell.panel==='flood';routeGuidance.setVisible(visible);areaUI.setVisible(visible);overlay.visible=visible&&$('showFloodOverlay').checked;routeLayer.visible=visible;document.querySelector('.flood-inset-key').hidden=!visible;if(!visible)$('stage').classList.remove('route-fit-mode');if(visible){onReturnToFlood?.();$('waterChip').textContent=isRainfall()?(rainResult.valid?'강우 → 근사 침수 · 시제품':'강우 미확인 · 위험도 미산정'):'합성 침수 실험 · 강우 연계 전';$('routeText').textContent=routeFooter()}else $('routeText').textContent='침수 색상·조건부 경로는 침수·대피 탭에서 표시합니다.'}
  document.addEventListener('cheonggye:panelchange',syncVisible);
  $('rainfallIntensity').addEventListener('input',rainSummary);$('rainfallDuration').addEventListener('input',rainSummary);
  function rainSummary(){if(isRainfall())recompute();else $('rainfallInputState').textContent='강우 연결은 실시간 강우 시제품 모드에서 계산합니다.';}
  $('downloadFloodTemplate').addEventListener('click',()=>{const result={schema:graph.schema,graphId:graph.id,id:'external-result',label:'외부 침수 결과',provenance:'synthetic',source:'합성 실험 입력 · 실제 수리모형 결과 아님',notHydraulicPrediction:true,rainfall:null,rainfallLinkageValidated:false,scenarioTimeSeconds:null,coordinateBasis:{horizontal:'scene_precision_v5-local-xz-m',vertical:'assumed-walkway-y-minus3-m-not-datum'},edgeStates:Object.fromEntries(graph.edges.map(e=>[e.id,{depthM:null,velocityMps:null}]))};const blob=new Blob([JSON.stringify(result,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),anchor=document.createElement('a');anchor.href=url;anchor.download='cheonggye-flood-edge-template.json';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
  $('floodImport').addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file)return;try{if(file.size>2*1024*1024)throw Error('최대 2MB까지 입력할 수 있습니다.');const parsed=JSON.parse(await file.text()),valid=validateFloodResult(parsed,graph);if(!valid.valid)throw Error(valid.errors.slice(0,4).join(' / '));parsed.label=typeof parsed.label==='string'?parsed.label:'입력한 합성 결과';parsed.id=importOptionValue;current=parsed;importedResult=parsed;let option=$('floodScenario').querySelector('option[data-imported]');if(!option){option=document.createElement('option');option.value=importOptionValue;option.dataset.imported='true';$('floodScenario').append(option)}option.textContent='입력한 합성 결과: '+parsed.label;$('floodScenario').value=importOptionValue;importState='accepted-structure-only';$('floodImportStatus').textContent='입력 형식 확인 완료 · 수리 정확성/현장 안전성 검증 아님';recompute()}catch(error){importState='rejected';$('floodImportStatus').textContent='입력 거부 · 이전 침수 입력과 경로를 유지합니다. '+error.message;recompute()}finally{event.target.value=''}});
  rainSummary();recompute();syncVisible();restartLive();
- return {graph,setHistoricalReplay,frame(camera){for(const [label,marker]of [[startLabel,startMarker],[arrivalLabel,arrivalMarker]]){const visible=routeLayer.visible&&marker.visible;label.hidden=!visible;if(!visible)continue;
+ return {graph,setHistoricalReplay,frame(camera){routeGuidance.frame(camera);for(const [label,marker]of [[startLabel,startMarker],[arrivalLabel,arrivalMarker]]){const visible=routeLayer.visible&&marker.visible;label.hidden=!visible;if(!visible)continue;
   // Retain the original world position and maximum size, but avoid a huge sphere
   // in walking views. This is a display-only seven-pixel radius cap.
   const radiusAtSevenPixels=2*camera.position.distanceTo(marker.position)*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*7/Math.max(1,$('stage').clientHeight);

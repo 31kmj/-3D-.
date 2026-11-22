@@ -82,7 +82,7 @@ export function createDashboard(){
  const tray=document.createElement('section');tray.className='final-analytics';tray.setAttribute('aria-label','침수 분석 그래프');tray.innerHTML=`
  <div class="analytics-heading"><div><b>모형 침수 분석</b><span id="finalAnalysisTime">지도 0분</span></div><button id="toggleAnalytics" aria-expanded="true" aria-controls="finalCharts">그래프 접기</button></div>
  <p id="finalMapBasis" class="final-map-basis">계산 준비 중</p>
- <div class="risk-key"><span><i class="risk-green"></i>안전</span><span><i class="risk-yellow"></i>주의</span><span><i class="risk-red"></i>위험</span><span><i class="risk-gray"></i>미확인</span><small>모형 판정 · 청록선은 계산된 대피경로</small></div>
+ <div class="risk-key"><span><i class="risk-green"></i>안전</span><span><i class="risk-yellow"></i>주의</span><span><i class="risk-red"></i>위험</span><span><i class="risk-gray"></i>미확인</span><small>모형 판정 · 청록선은 계산된 대피경로 · 건물 위 표시는 위치 안내</small></div>
  <div id="finalCharts"><div class="final-chart-grid">
  <article><h3>보행 침수면적 <small>m²</small></h3><strong id="finalArea">—</strong><svg id="finalAreaChart" role="img" aria-label="보행 침수면적 비교"></svg></article>
  <article><h3>상대 수면 높이 <small>m · 모형 기준</small></h3><strong id="finalStage">—</strong><svg id="finalStageChart" role="img" aria-label="상대 수면 높이 비교"></svg></article>
